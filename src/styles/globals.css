@@ -1,26 +1,49 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-*: initial;
+
+  /* Colors */
+  --color-orange: rgba(254, 68, 9, 1);
+  --color-dark-gray: rgba(96, 107, 108, 1);
+  --color-blue-gray: rgba(173, 194, 195, 1);
+  --color-blue-black: rgba(24, 30, 31, 1);
+  --color-black: rgba(20, 20, 20, 1);
+  --color-white: rgba(250, 250, 250, 1);
+  --color-light-gray: rgba(201, 206, 214, 1);
+
+  /* Fonts */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  /* Form */
+  --input-height: 64px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--color-orange);
+  --color-secondary: var(--color-dark-gray);
+  --color-tertiary: var(--color-blue-gray);
+
+  --color-background: var(--color-black);
+  --color-foreground: var(--color-white);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer components {
+  .react-datepicker__input-container {
+    @apply inline-flex! h-[var(--input-height)]! items-center rounded-full border-2 border-dark-gray bg-blue-black p-2 text-light-gray transition-all focus-within:border-primary;
+
+    input:focus {
+      @apply outline-none;
+    }
+
+    input {
+      padding: 6px 6px 6px 32px !important;
+    }
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  .react-datepicker__calendar-icon {
+    fill: var(--color-light-gray);
+    padding-right: 4px;
+  }
 }

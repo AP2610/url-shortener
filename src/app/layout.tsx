@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} bg-background text-foreground antialiased`}>
         <div className="flex min-h-dvh flex-col">
           {/* Placeholder */}
           <header>
@@ -38,7 +38,7 @@ export default function RootLayout({
           {/* Placeholder */}
           <footer>
             <div className="container mx-auto px-4 py-4">
-              <p className="text-sm text-gray-500">&copy; {new Date().getFullYear()} Linkly. All rights reserved.</p>
+              <p className="text-gray-500 text-sm">&copy; {new Date().getFullYear()} Linkly. All rights reserved.</p>
             </div>
           </footer>
         </div>
