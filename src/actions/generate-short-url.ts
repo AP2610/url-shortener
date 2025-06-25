@@ -5,9 +5,7 @@ import { nanoid } from 'nanoid';
 
 const BASE_URL = process.env.BASE_URL;
 
-export const generateShortUrl = async (formData: FormData): Promise<string> => {
-  const url = formData.get('url') as string;
-
+export const generateShortUrl = async ({ url, expiryDate }: { url: string; expiryDate: Date }) => {
   const shortCode = nanoid(6);
   const shortUrl = `${BASE_URL}/${shortCode}`;
 
@@ -16,6 +14,7 @@ export const generateShortUrl = async (formData: FormData): Promise<string> => {
       url,
       shortCode,
       shortUrl,
+      expiresAt: expiryDate,
     },
   });
 
