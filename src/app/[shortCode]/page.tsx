@@ -2,11 +2,11 @@ import { redirect } from 'next/navigation';
 import { getUrlRecord, incrementVisitCount } from '@/lib/db/utils';
 
 interface ShortUrlPageProps {
-  params: { shortCode: string };
+  params: Promise<{ shortCode: string }>;
 }
 
 export default async function ShortUrlPage({ params }: ShortUrlPageProps) {
-  const { shortCode } = params;
+  const { shortCode } = await params;
 
   const { hasError, message, url, isExpired } = await getUrlRecord(shortCode);
 
