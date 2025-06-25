@@ -4,16 +4,57 @@ import { generateShortUrl } from '@/actions/generate-short-url';
 import { useState } from 'react';
 import { MyDatePicker } from '../date-picker';
 import { CiLink } from 'react-icons/ci';
-import { motion, type MotionProps } from 'motion/react';
+import { motion, type Variants } from 'motion/react';
 
-const createStaggerAnimation = (index: number, animation: MotionProps, staggerDelay: number = 0.2) => ({
-  initial: animation.initial,
-  animate: animation.animate,
-  transition: {
-    ...animation.transition,
-    delay: index * staggerDelay,
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.6,
+      delayChildren: 0.2,
+    },
   },
-});
+};
+
+const slideUpVariants: Variants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      type: 'spring' as const,
+      stiffness: 100,
+      damping: 10,
+    },
+  },
+};
+
+const slideDownVariants: Variants = {
+  hidden: { opacity: 0, y: -50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      type: 'spring' as const,
+      stiffness: 100,
+      damping: 10,
+    },
+  },
+};
+
+const fadeInVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      delay: 1.2,
+    },
+  },
+};
 
 export const UrlForm = () => {
   const [shortUrl, setShortUrl] = useState<string | null>(null);
@@ -42,13 +83,15 @@ export const UrlForm = () => {
   // To do, show modal with short url and button to copy to clipboard
 
   return (
-    <form onSubmit={handleFormSubmit} className="flex w-full max-w-3xl flex-col items-center gap-6">
+    <motion.form
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      onSubmit={handleFormSubmit}
+      className="flex w-full max-w-3xl flex-col items-center gap-6"
+    >
       <motion.div
-        {...createStaggerAnimation(0, {
-          initial: { opacity: 0, y: -50 },
-          animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.5, type: 'spring', stiffness: 100, damping: 10 },
-        })}
+        variants={slideDownVariants}
         className="relative h-[var(--input-height)] w-full rounded-full border-2 border-dark-gray bg-blue-black text-light-gray focus-within:border-primary"
       >
         <input
@@ -75,35 +118,12 @@ export const UrlForm = () => {
         </button>
       </motion.div>
 
-      <motion.div
-        {...createStaggerAnimation(
-          1,
-          {
-            initial: { opacity: 0, y: 50 },
-            animate: { opacity: 1, y: 0 },
-            transition: { duration: 0.5, type: 'spring', stiffness: 100, damping: 10 },
-          },
-          0.4,
-        )}
-        className="flex flex-col gap-2"
-      >
+      <motion.div variants={slideUpVariants} className="flex flex-col gap-2">
         <MyDatePicker showIcon name="expiryDate" selected={expiryDate} onChange={handleDateChange} />
-        <motion.label
-          {...createStaggerAnimation(
-            0,
-            {
-              initial: { opacity: 0 },
-              animate: { opacity: 1 },
-              transition: { duration: 0.5 },
-            },
-            0.4,
-          )}
-          htmlFor="expiryDate"
-          className="text-sm text-light-gray"
-        >
+        <motion.label variants={fadeInVariants} htmlFor="expiryDate" className="text-sm text-light-gray">
           Expiry date
         </motion.label>
       </motion.div>
-    </form>
+    </motion.form>
   );
 };
