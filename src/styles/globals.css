@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+@import './buttons.css';
+
+/* Change color palette to use purple and neon green */
+
 @theme {
   --color-*: initial;
 
