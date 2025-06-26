@@ -1,5 +1,6 @@
 'use client';
 
+import { Button } from '@/components/ui/button';
 import { motion } from 'motion/react';
 import { CiLogin } from 'react-icons/ci';
 
@@ -104,6 +105,8 @@ export const Header = () => {
     },
   };
 
+  // TODO: change logo to shortly
+
   return (
     <header className="flex items-center justify-between p-4 md:px-8 md:py-4">
       <motion.div variants={logoContainerVariants} initial="hidden" animate="visible" className="text-2xl font-bold text-primary">
@@ -122,12 +125,14 @@ export const Header = () => {
       </motion.div>
 
       <div className="flex items-center gap-4 text-sm">
-        <button className="flex items-center gap-2 rounded-full border-2 border-dark-gray bg-dark-gray/40 px-4 py-2 text-white">
+        <Button variant="secondary" className="flex items-center gap-2 rounded-full">
           Login
           <CiLogin className="h-6 w-6" />
-        </button>
+        </Button>
 
-        <button className="rounded-full border-2 border-transparent bg-primary px-4 py-2 text-white">Register Now</button>
+        <Button variant="primary" className="rounded-full">
+          Register Now
+        </Button>
       </div>
     </header>
   );
