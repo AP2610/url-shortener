@@ -1,4 +1,4 @@
-import { UrlForm } from '@/components/url-form';
+import { UrlForm } from '@/components/features/url-form';
 // import prisma from '@/lib/db/prisma';
 
 const Home = async () => {
