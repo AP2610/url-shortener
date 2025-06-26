@@ -30,20 +30,33 @@
 }
 
 @layer components {
+  .react-datepicker-wrapper {
+    @apply w-full!;
+  }
+
   .react-datepicker__input-container {
-    @apply inline-flex! h-[var(--input-height)]! items-center rounded-full border-2 border-dark-gray bg-blue-black p-2 text-light-gray transition-all focus-within:border-primary;
+    @apply inline-flex! h-[var(--input-height)]! w-full items-center rounded-sm border-2 border-dark-gray bg-blue-black p-2 text-light-gray transition-all focus-within:border-primary;
 
     input:focus {
       @apply outline-none;
     }
 
     input {
-      padding: 6px 6px 6px 32px !important;
+      @apply pt-7! pr-4! pb-3! pl-8!;
     }
   }
 
   .react-datepicker__calendar-icon {
     fill: var(--color-light-gray);
     padding-right: 4px;
+    margin-top: 16px;
+  }
+}
+
+button {
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
   }
 }
