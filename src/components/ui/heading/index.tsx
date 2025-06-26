@@ -5,7 +5,7 @@ type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 type HeadingProps = {
   level: HeadingLevels;
   children: React.ReactNode;
-  color?: 'orange' | 'black' | 'foreground' | 'light-gray' | 'dark-gray';
+  color?: 'purple' | 'black' | 'foreground' | 'light-gray' | 'dark-gray';
   as?: HeadingLevels;
   weight?: 'light' | 'normal' | 'medium' | 'semibold' | 'bold' | 'black';
   className?: string;
@@ -44,7 +44,7 @@ export const Heading = ({ level, as, children, className, color = 'foreground', 
       'text-black': color === 'black',
       'text-light-gray': color === 'light-gray',
       'text-dark-gray': color === 'dark-gray',
-      'text-orange': color === 'orange',
+      'text-purple': color === 'purple',
     },
     className,
   );

@@ -1,16 +1,17 @@
 'use client';
 
 import { generateShortUrl } from '@/actions/db/generate-short-url';
-import { useRef, useState } from 'react';
-import { MyDatePicker } from '../../ui/date-picker';
-import { CiLink } from 'react-icons/ci';
-import { motion, type Variants } from 'motion/react';
-import { sanitizeUrlInput, validateUrl } from '@/lib/utils/url-utils';
+import { Button } from '@/components/ui/button';
+import { DotLoader } from '@/components/ui/dot-loader';
+import { Heading } from '@/components/ui/heading';
 import { Modal } from '@/components/ui/modal';
 import { useModal } from '@/hooks/use-modal';
-import { Heading } from '@/components/ui/heading';
-import { Button } from '@/components/ui/button';
+import { sanitizeUrlInput, validateUrl } from '@/lib/utils/url-utils';
+import { motion, type Variants } from 'motion/react';
+import { useRef, useState } from 'react';
+import { CiLink } from 'react-icons/ci';
 import { IoCopyOutline } from 'react-icons/io5';
+import { MyDatePicker } from '../../ui/date-picker';
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -187,7 +188,7 @@ export const UrlForm = () => {
             ref={buttonRef}
             className="h-full w-[20%] [border-top-left-radius:4px] [border-top-right-radius:50px] [border-bottom-right-radius:50px] [border-bottom-left-radius:4px] border-2 border-dark-gray bg-dark-gray/60 py-3 text-light-gray transition-colors duration-300 hover:bg-dark-gray/40 focus:border-primary focus:outline-none"
           >
-            {isLoading ? 'Loading...' : 'Shorten now!'}
+            {isLoading ? <DotLoader /> : 'Shorten!'}
           </motion.button>
         </motion.div>
       </form>
