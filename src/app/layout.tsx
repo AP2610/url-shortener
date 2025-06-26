@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import '../styles/globals.css';
-import { Header } from '@/components/header';
+import { Header } from '@/components/layout/header';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Linkly',
-  description: 'Linkly is a URL shortening service',
+  title: 'Shortly',
+  description: 'Shortly is a URL shortening service',
 };
 
 export default function RootLayout({
