@@ -8,7 +8,7 @@
   --color-*: initial;
 
   /* Colors */
-  --color-orange: rgba(254, 68, 9, 1);
+  --color-purple: rgb(93, 63, 211, 1);
   --color-dark-gray: rgba(96, 107, 108, 1);
   --color-blue-gray: rgba(173, 194, 195, 1);
   --color-blue-black: rgba(24, 30, 31, 1);
@@ -25,7 +25,7 @@
 }
 
 @theme inline {
-  --color-primary: var(--color-orange);
+  --color-primary: var(--color-purple);
   --color-secondary: var(--color-dark-gray);
   --color-tertiary: var(--color-blue-gray);
 
