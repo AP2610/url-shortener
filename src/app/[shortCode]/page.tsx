@@ -1,5 +1,6 @@
+import { getUrlRecord } from '@/actions/db/get-url-record';
+import { incrementVisitCount } from '@/actions/db/increment-visit-count';
 import { redirect } from 'next/navigation';
-import { getUrlRecord, incrementVisitCount } from '@/lib/db/utils';
 
 interface ShortUrlPageProps {
   params: Promise<{ shortCode: string }>;
@@ -13,7 +14,7 @@ export default async function ShortUrlPage({ params }: ShortUrlPageProps) {
   console.log(isExpired);
 
   if (isExpired) {
-    // Show modal to user with error message and button to go back to home page
+    // TODO: Show modal to user with expiry message and button to go back to home page
     return <div>URL has expired</div>;
   }
 
@@ -21,7 +22,7 @@ export default async function ShortUrlPage({ params }: ShortUrlPageProps) {
     await incrementVisitCount(shortCode);
     redirect(url.url);
   } else {
-    // Show modal to user with error message and button to go back to home page
+    // TODO: Show modal to user with error message and button to go back to home page
     return <div>{message}</div>;
   }
 }

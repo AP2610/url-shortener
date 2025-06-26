@@ -1,10 +1,11 @@
 'use client';
 
-import { generateShortUrl } from '@/actions/generate-short-url';
-import { useState } from 'react';
+import { generateShortUrl } from '@/actions/db/generate-short-url';
+import { useRef, useState } from 'react';
 import { MyDatePicker } from '../date-picker';
 import { CiLink } from 'react-icons/ci';
 import { motion, type Variants } from 'motion/react';
+import { sanitizeUrlInput, validateUrl } from '@/lib/utils/url-utils';
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -17,30 +18,24 @@ const containerVariants: Variants = {
   },
 };
 
-const slideUpVariants: Variants = {
-  hidden: { opacity: 0, y: 50 },
+const slideXLeftVariants: Variants = {
+  hidden: { opacity: 0, x: -50 },
   visible: {
     opacity: 1,
-    y: 0,
+    x: 0,
     transition: {
-      duration: 0.5,
-      type: 'spring' as const,
-      stiffness: 100,
-      damping: 10,
+      duration: 0.3,
     },
   },
 };
 
-const slideDownVariants: Variants = {
-  hidden: { opacity: 0, y: -50 },
+const slideXRightVariants: Variants = {
+  hidden: { opacity: 0, x: 50 },
   visible: {
     opacity: 1,
-    y: 0,
+    x: 0,
     transition: {
-      duration: 0.5,
-      type: 'spring' as const,
-      stiffness: 100,
-      damping: 10,
+      duration: 0.3,
     },
   },
 };
@@ -50,7 +45,7 @@ const fadeInVariants: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      duration: 0.5,
+      duration: 0.3,
       delay: 1.2,
     },
   },
@@ -59,7 +54,12 @@ const fadeInVariants: Variants = {
 export const UrlForm = () => {
   const [shortUrl, setShortUrl] = useState<string | null>(null);
   const [expiryDate, setExpiryDate] = useState(new Date());
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   console.log(shortUrl);
+  console.log(errorMessage);
 
   const handleDateChange = (date: Date | null) => {
     setExpiryDate(date as Date);
@@ -67,63 +67,111 @@ export const UrlForm = () => {
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsLoading(true);
 
     const formData = new FormData(event.currentTarget);
+    const url = sanitizeUrlInput(formData.get('url') as string);
     const expiryDate = formData.get('expiryDate') as string;
 
+    const { isValid, errorMessage } = validateUrl(url);
+
+    if (!isValid && errorMessage) {
+      setErrorMessage(errorMessage);
+      setIsLoading(false);
+      return;
+    }
+
     const urlGenerationData = {
-      url: formData.get('url') as string,
+      url,
       expiryDate: new Date(expiryDate),
     };
 
-    const shortUrl = await generateShortUrl(urlGenerationData);
-    setShortUrl(shortUrl);
+    try {
+      const { hasError, message, shortUrl } = await generateShortUrl(urlGenerationData);
+
+      if (hasError) {
+        setErrorMessage(message);
+        setIsLoading(false);
+        return;
+      }
+
+      setShortUrl(shortUrl);
+      setErrorMessage(message);
+      console.log('message: ', message);
+      console.log('shortUrl:', shortUrl);
+    } catch (error) {
+      console.error(error);
+
+      setErrorMessage('An error occurred while generating the short URL');
+    } finally {
+      setIsLoading(false);
+
+      if (inputRef.current) {
+        inputRef.current.value = '';
+      }
+
+      if (buttonRef.current) {
+        buttonRef.current.blur();
+      }
+    }
   };
 
-  // To do, show modal with short url and button to copy to clipboard
+  // TODO: Show modal with short url and button to copy to clipboard
+
+  // TODO: show error message below url input
 
   return (
-    <motion.form
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-      onSubmit={handleFormSubmit}
-      className="flex w-full max-w-3xl flex-col items-center gap-6"
-    >
+    <form onSubmit={handleFormSubmit} className="w-full md:w-5xl">
       <motion.div
-        variants={slideDownVariants}
-        className="relative h-[var(--input-height)] w-full rounded-full border-2 border-dark-gray bg-blue-black text-light-gray focus-within:border-primary"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="flex h-[var(--input-height)] w-full items-center gap-2"
       >
-        <input
-          required
-          placeholder=""
-          className="peer h-full w-full max-w-[calc(100%-168px)] appearance-none pt-7 pr-4 pb-3 pl-12 transition-all focus:outline-none"
-          type="url"
-          name="url"
-        />
-        <CiLink className="absolute top-1/2 left-3 h-6 w-6 -translate-y-1/2 -rotate-45 transition-all peer-focus:rotate-45 peer-focus:text-primary" />
-
-        <label
-          className="absolute left-12 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:top-4 peer-focus:-translate-y-1/2 peer-focus:text-xs peer-[:not(:placeholder-shown)]:top-4 peer-[:not(:placeholder-shown)]:-translate-y-1/2 peer-[:not(:placeholder-shown)]:text-xs"
-          htmlFor="url"
+        <motion.div
+          variants={slideXLeftVariants}
+          className="relative h-full w-[60%] [border-top-left-radius:50px] [border-top-right-radius:4px] [border-bottom-right-radius:4px] [border-bottom-left-radius:50px] border-2 border-dark-gray bg-blue-black focus-within:border-primary"
         >
-          Enter your link here
-        </label>
+          <input
+            ref={inputRef}
+            required
+            placeholder=""
+            className="peer h-full w-full appearance-none pt-7 pr-4 pb-3 pl-12 text-light-gray transition-all focus:outline-none"
+            type="url"
+            name="url"
+          />
 
-        <button
+          <CiLink className="absolute top-1/2 left-3 h-6 w-6 -translate-y-1/2 -rotate-45 text-dark-gray transition-all peer-focus:rotate-45 peer-focus:text-primary" />
+
+          <label
+            className="absolute left-12 text-dark-gray transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:top-4 peer-focus:-translate-y-1/2 peer-focus:text-[11px] peer-[:not(:placeholder-shown)]:top-4 peer-[:not(:placeholder-shown)]:-translate-y-1/2 peer-[:not(:placeholder-shown)]:text-[11px]"
+            htmlFor="url"
+          >
+            Enter your link here
+          </label>
+        </motion.div>
+
+        <motion.div variants={slideXRightVariants} className="relative h-full w-[20%]">
+          <MyDatePicker showIcon name="expiryDate" selected={expiryDate} onChange={handleDateChange} />
+          <motion.label
+            variants={fadeInVariants}
+            htmlFor="expiryDate"
+            className="absolute top-4 left-[20px] -translate-y-1/2 text-[11px] text-dark-gray"
+          >
+            Expiry date
+          </motion.label>
+        </motion.div>
+
+        <motion.button
+          variants={slideXRightVariants}
           type="submit"
-          className="absolute top-1/2 right-2 w-[160px] -translate-y-1/2 rounded-full bg-tertiary py-3 text-black transition-all hover:bg-tertiary/80"
+          disabled={isLoading}
+          ref={buttonRef}
+          className="h-full w-[20%] [border-top-left-radius:4px] [border-top-right-radius:50px] [border-bottom-right-radius:50px] [border-bottom-left-radius:4px] border-2 border-dark-gray bg-dark-gray/60 py-3 text-light-gray transition-colors duration-300 hover:bg-dark-gray/40 focus:border-primary focus:outline-none"
         >
-          Shorten now!
-        </button>
+          {isLoading ? 'Loading...' : 'Shorten now!'}
+        </motion.button>
       </motion.div>
-
-      <motion.div variants={slideUpVariants} className="flex flex-col gap-2">
-        <MyDatePicker showIcon name="expiryDate" selected={expiryDate} onChange={handleDateChange} />
-        <motion.label variants={fadeInVariants} htmlFor="expiryDate" className="text-sm text-light-gray">
-          Expiry date
-        </motion.label>
-      </motion.div>
-    </motion.form>
+    </form>
   );
 };
