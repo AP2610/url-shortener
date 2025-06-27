@@ -15,18 +15,18 @@ export const Header = () => {
   if (isLoginPage || isRegisterPage) return null;
 
   return (
-    <header className="fixed top-0 right-0 left-0 z-50 flex h-[var(--header-height)] items-center justify-between p-4 md:px-8 md:py-4">
+    <header className="fixed top-0 right-0 left-0 z-50 container mx-auto flex h-[var(--header-height)] items-center justify-between p-4 md:px-8 md:py-4">
       <Link href="/">
         <Logo layoutId="logo" />
       </Link>
 
-      <div className="flex items-center gap-4 text-sm">
+      <div className="block text-sm md:flex md:items-center md:gap-4">
         <MyLink href="/login" variant="secondary" className="flex items-center gap-2 rounded-full">
           Login
           <CiLogin className="h-6 w-6" />
         </MyLink>
 
-        <MyLink href="/sign-up" variant="primary" className="rounded-full">
+        <MyLink href="/sign-up" variant="primary" className="hidden rounded-full md:block">
           Register Now
         </MyLink>
       </div>

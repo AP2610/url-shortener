@@ -11,5 +11,5 @@ export const LoginForm = () => {
     console.log(email, password);
   };
 
-  return <AuthenticationForm formTitle="Login" buttonText="Login" onSubmit={handleSubmit} />;
+  return <AuthenticationForm formTitle="Login" buttonText="Login" onSubmit={handleSubmit} type="login" />;
 };

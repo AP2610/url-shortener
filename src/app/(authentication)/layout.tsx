@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <div className="relative h-full">
-      <Link href="/" className="absolute top-4 left-12">
+      <Link href="/" className="absolute top-4 left-4 md:left-12">
         <Logo />
       </Link>
 

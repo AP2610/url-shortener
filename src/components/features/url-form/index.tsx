@@ -149,11 +149,11 @@ export const UrlForm = () => {
           variants={containerVariants}
           initial="hidden"
           animate={isEntryAnimationComplete ? 'visible' : 'hidden'}
-          className="flex h-[var(--input-height)] w-full items-center gap-2"
+          className="flex w-full flex-col items-center justify-center gap-4 md:flex-row md:gap-2"
         >
           <motion.div
             variants={slideXLeftVariants}
-            className="relative h-full w-[60%] [border-top-left-radius:50px] [border-top-right-radius:4px] [border-bottom-right-radius:4px] [border-bottom-left-radius:50px] border-2 border-dark-gray bg-blue-black focus-within:border-primary"
+            className="relative h-[var(--input-height)] w-full rounded-sm border-2 border-dark-gray bg-blue-black focus-within:border-primary md:w-[60%] md:[border-top-left-radius:50px] md:[border-top-right-radius:4px] md:[border-bottom-right-radius:4px] md:[border-bottom-left-radius:50px]"
           >
             <input
               ref={urlInputRef}
@@ -174,7 +174,7 @@ export const UrlForm = () => {
             </label>
           </motion.div>
 
-          <motion.div variants={slideXRightVariants} className="relative h-full w-[20%]">
+          <motion.div variants={slideXRightVariants} className="relative h-[var(--input-height)] w-full md:w-[20%]">
             <MyDatePicker showIcon name="expiryDate" selected={expiryDate} onChange={handleDateChange} />
             <motion.label
               variants={fadeInVariants}
@@ -190,7 +190,7 @@ export const UrlForm = () => {
             type="submit"
             disabled={isLoading}
             ref={buttonRef}
-            className="h-full w-[20%] cursor-pointer [border-top-left-radius:4px] [border-top-right-radius:50px] [border-bottom-right-radius:50px] [border-bottom-left-radius:4px] border-2 border-dark-gray bg-dark-gray/60 py-3 text-light-gray transition-colors duration-300 hover:bg-dark-gray/40 focus:border-primary focus:outline-none"
+            className="h-[var(--input-height)] w-full cursor-pointer rounded-sm border-2 border-dark-gray bg-dark-gray/60 py-3 text-light-gray transition-colors duration-300 hover:bg-dark-gray/40 focus:border-primary focus:outline-none md:w-[20%] md:[border-top-left-radius:4px] md:[border-top-right-radius:50px] md:[border-bottom-right-radius:50px] md:[border-bottom-left-radius:4px]"
           >
             {isLoading ? <DotLoader /> : 'Shorten!'}
           </motion.button>
