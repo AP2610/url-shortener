@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/forms/input';
 import { Heading } from '@/components/ui/heading';
+import { MyLink } from '@/components/ui/my-link';
 import { useState, useEffect } from 'react';
 
 const validationRules = {
@@ -30,9 +31,10 @@ interface AuthenticationFormProps {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   formTitle: string;
   buttonText: string;
+  type: 'login' | 'register';
 }
 
-export const AuthenticationForm = ({ onSubmit, formTitle, buttonText }: AuthenticationFormProps) => {
+export const AuthenticationForm = ({ onSubmit, formTitle, buttonText, type }: AuthenticationFormProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailErrorMessage, setEmailErrorMessage] = useState<string | null>(null);
@@ -120,6 +122,16 @@ export const AuthenticationForm = ({ onSubmit, formTitle, buttonText }: Authenti
           {buttonText}
         </Button>
       </div>
+
+      {type === 'register' ? (
+        <p className="text-center text-dark-gray">
+          Already have an account? <MyLink href="/login">Login</MyLink>.
+        </p>
+      ) : (
+        <p className="text-center text-dark-gray">
+          Don't have an account? <MyLink href="/sign-up">Register</MyLink>.
+        </p>
+      )}
     </form>
   );
 };
