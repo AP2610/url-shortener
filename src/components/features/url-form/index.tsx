@@ -144,7 +144,7 @@ export const UrlForm = () => {
 
   return (
     <>
-      <form onSubmit={handleFormSubmit} className="w-full md:w-5xl">
+      <form onSubmit={handleFormSubmit} className="w-full lg:w-4xl">
         <motion.div
           variants={containerVariants}
           initial="hidden"
