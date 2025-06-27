@@ -27,7 +27,6 @@ export const Input = ({ label, containerClassName, inputClassName, labelClassNam
         )}
       >
         <input
-          autoFocus
           required
           placeholder=""
           className={cn(
