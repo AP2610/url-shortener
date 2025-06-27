@@ -1,26 +1,26 @@
 'use client';
 
 import { generateShortUrl } from '@/actions/db/generate-short-url';
+import { DotLoader } from '@/components/ui/animation/dot-loader';
 import { Button } from '@/components/ui/button';
-import { DotLoader } from '@/components/ui/dot-loader';
+import { MyDatePicker } from '@/components/ui/date-picker';
 import { Heading } from '@/components/ui/heading';
 import { Modal } from '@/components/ui/modal';
 import { useModal } from '@/hooks/use-modal';
+import useAnimationStore from '@/lib/stores/animation-store';
 import { sanitizeUrlInput, validateUrl } from '@/lib/utils/url-utils';
 import { motion, type Variants } from 'motion/react';
 import { useRef, useState } from 'react';
 import { CiLink } from 'react-icons/ci';
 import { IoCopyOutline } from 'react-icons/io5';
-import { MyDatePicker } from '../../ui/date-picker';
-import useAnimationStore from '@/lib/stores/animation-store';
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.6,
-      delayChildren: 0.2,
+      staggerChildren: 0.5,
+      delayChildren: 0.1,
     },
   },
 };
@@ -66,7 +66,7 @@ export const UrlForm = () => {
   const { isOpen, showModal, closeModal } = useModal();
   const { animationCompletionStatus } = useAnimationStore();
 
-  const isLogoAnimationCompleted = animationCompletionStatus['logo'];
+  const isEntryAnimationComplete = animationCompletionStatus['entry-animation'];
 
   const urlInputRef = useRef<HTMLInputElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -148,7 +148,7 @@ export const UrlForm = () => {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate={isLogoAnimationCompleted ? 'visible' : 'hidden'}
+          animate={isEntryAnimationComplete ? 'visible' : 'hidden'}
           className="flex h-[var(--input-height)] w-full items-center gap-2"
         >
           <motion.div
