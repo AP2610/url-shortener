@@ -1,18 +1,7 @@
 'use client';
 
+import useAnimationStore from '@/lib/stores/animation-store';
 import { motion } from 'motion/react';
-
-const logoContainerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: 0.5,
-      staggerChildren: 0.4,
-      delayChildren: 0.2,
-    },
-  },
-};
 
 const slideYAnimation = {
   hidden: { opacity: 0, y: 50 },
@@ -44,7 +33,28 @@ const slideXAnimation = {
 
 const LOGO_TEXT = 'SHORTLY';
 
-export const Logo = () => {
+interface LogoProps {
+  shouldAnimate?: boolean;
+  layoutId?: string;
+  scale?: number;
+}
+
+export const Logo = ({ layoutId, scale = 1 }: LogoProps) => {
+  const { setAnimationCompletionStatus } = useAnimationStore();
+
+  const logoContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      scale,
+      transition: {
+        duration: 0.5,
+        staggerChildren: 0.4,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
   return (
     <motion.div
       variants={logoContainerVariants}
@@ -53,6 +63,9 @@ export const Logo = () => {
       className="text-2xl font-bold text-primary"
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
+      onAnimationComplete={() => setAnimationCompletionStatus('logo')}
+      layoutId={layoutId}
+      viewport={{ once: true }}
     >
       {[...LOGO_TEXT].map((letter, index) => (
         <motion.span
