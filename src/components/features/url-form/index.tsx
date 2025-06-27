@@ -190,7 +190,7 @@ export const UrlForm = () => {
             type="submit"
             disabled={isLoading}
             ref={buttonRef}
-            className="h-full w-[20%] [border-top-left-radius:4px] [border-top-right-radius:50px] [border-bottom-right-radius:50px] [border-bottom-left-radius:4px] border-2 border-dark-gray bg-dark-gray/60 py-3 text-light-gray transition-colors duration-300 hover:bg-dark-gray/40 focus:border-primary focus:outline-none"
+            className="h-full w-[20%] cursor-pointer [border-top-left-radius:4px] [border-top-right-radius:50px] [border-bottom-right-radius:50px] [border-bottom-left-radius:4px] border-2 border-dark-gray bg-dark-gray/60 py-3 text-light-gray transition-colors duration-300 hover:bg-dark-gray/40 focus:border-primary focus:outline-none"
           >
             {isLoading ? <DotLoader /> : 'Shorten!'}
           </motion.button>
