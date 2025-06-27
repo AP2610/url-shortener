@@ -1,7 +1,7 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/ui/logo';
+import { MyLink } from '@/components/ui/my-link';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { CiLogin } from 'react-icons/ci';
@@ -21,14 +21,14 @@ export const Header = () => {
       </Link>
 
       <div className="flex items-center gap-4 text-sm">
-        <Button variant="secondary" className="flex items-center gap-2 rounded-full">
+        <MyLink href="/login" variant="secondary" className="flex items-center gap-2 rounded-full">
           Login
           <CiLogin className="h-6 w-6" />
-        </Button>
+        </MyLink>
 
-        <Button variant="primary" className="rounded-full">
+        <MyLink href="/sign-up" variant="primary" className="rounded-full">
           Register Now
-        </Button>
+        </MyLink>
       </div>
     </header>
   );

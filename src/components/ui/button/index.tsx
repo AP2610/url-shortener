@@ -1,19 +1,9 @@
 'use client';
 
-import { ButtonHTMLAttributes } from 'react';
 import { cn } from '@/lib/utils/cn';
-
-const buttonStyles = {
-  variants: {
-    'icon-button': 'btn-icon',
-    primary: 'btn-primary',
-    secondary: 'btn-secondary',
-    tertiary: 'btn-tertiary',
-  },
-  nonIconButtonStyles: 'btn-base',
-};
-
-type ButtonVariants = 'primary' | 'secondary' | 'tertiary' | 'icon-button';
+import { ButtonHTMLAttributes } from 'react';
+import { buttonStyles } from './button-styles';
+import { ButtonVariants } from './types';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
