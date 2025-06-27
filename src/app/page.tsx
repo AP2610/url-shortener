@@ -1,11 +1,10 @@
 import { UrlForm } from '@/components/features/url-form';
-// import prisma from '@/lib/db/prisma';
+import { EntryAnimation } from '@/components/ui/entry-animation';
 
-const Home = async () => {
-  // const urls = await prisma.uRL.findMany();
-
+const Home = () => {
   return (
     <div className="container mx-auto flex min-h-screen flex-col items-center justify-center">
+      <EntryAnimation />
       <UrlForm />
     </div>
   );

@@ -12,6 +12,7 @@ import { useRef, useState } from 'react';
 import { CiLink } from 'react-icons/ci';
 import { IoCopyOutline } from 'react-icons/io5';
 import { MyDatePicker } from '../../ui/date-picker';
+import useAnimationStore from '@/lib/stores/animation-store';
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -63,6 +64,9 @@ export const UrlForm = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { isOpen, showModal, closeModal } = useModal();
+  const { animationCompletionStatus } = useAnimationStore();
+
+  const isLogoAnimationCompleted = animationCompletionStatus['logo'];
 
   const urlInputRef = useRef<HTMLInputElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -144,7 +148,7 @@ export const UrlForm = () => {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate="visible"
+          animate={isLogoAnimationCompleted ? 'visible' : 'hidden'}
           className="flex h-[var(--input-height)] w-full items-center gap-2"
         >
           <motion.div

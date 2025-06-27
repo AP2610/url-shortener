@@ -7,7 +7,7 @@ export const Header = () => {
   return (
     <header className="flex items-center justify-between p-4 md:px-8 md:py-4">
       <Link href="/">
-        <Logo />
+        <Logo layoutId="logo" />
       </Link>
 
       <div className="flex items-center gap-4 text-sm">
