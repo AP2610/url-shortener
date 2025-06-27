@@ -15,7 +15,7 @@ export const Header = () => {
   if (isLoginPage || isRegisterPage) return null;
 
   return (
-    <header className="fixed top-0 right-0 left-0 z-50 container mx-auto flex h-[var(--header-height)] items-center justify-between p-4 md:px-8 md:py-4">
+    <header className="fixed top-0 right-0 left-0 z-50 container mx-auto flex h-[var(--header-height)] items-center justify-between p-4">
       <Link href="/">
         <Logo layoutId="logo" />
       </Link>
@@ -26,7 +26,7 @@ export const Header = () => {
           <CiLogin className="h-6 w-6" />
         </MyLink>
 
-        <MyLink href="/sign-up" variant="primary" className="hidden rounded-full md:block">
+        <MyLink href="/sign-up" variant="primary" className="hidden rounded-full md:flex">
           Register Now
         </MyLink>
       </div>
