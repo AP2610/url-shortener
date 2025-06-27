@@ -1,6 +1,6 @@
 @layer components {
   .btn-base {
-    @apply flex min-h-[44px] cursor-pointer items-center justify-center px-4 py-2 text-center font-sans text-sm font-medium transition-all duration-300;
+    @apply flex min-h-[44px] cursor-pointer items-center justify-center px-4 py-2 text-center font-sans text-sm font-medium transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50;
   }
 
   .btn-icon {
@@ -8,14 +8,14 @@
   }
 
   .btn-primary {
-    @apply bg-primary text-foreground hover:bg-primary/60;
+    @apply bg-primary text-foreground hover:bg-primary/60 disabled:hover:bg-primary;
   }
 
   .btn-secondary {
-    @apply border-2 border-dark-gray bg-dark-gray/40 text-foreground hover:bg-dark-gray/60;
+    @apply border-2 border-dark-gray bg-dark-gray/40 text-foreground hover:bg-dark-gray/60 disabled:hover:bg-dark-gray/60;
   }
 
   .btn-tertiary {
-    @apply bg-tertiary text-foreground hover:bg-tertiary/60;
+    @apply bg-tertiary text-foreground hover:bg-tertiary/60 disabled:hover:bg-tertiary;
   }
 }

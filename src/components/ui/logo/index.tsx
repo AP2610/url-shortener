@@ -1,6 +1,7 @@
 'use client';
 
 import useAnimationStore from '@/lib/stores/animation-store';
+import { cn } from '@/lib/utils/cn';
 import { motion } from 'motion/react';
 
 const slideYAnimation = {
@@ -37,9 +38,10 @@ interface LogoProps {
   shouldAnimate?: boolean;
   layoutId?: string;
   scale?: number;
+  className?: string;
 }
 
-export const Logo = ({ layoutId, scale = 1 }: LogoProps) => {
+export const Logo = ({ layoutId, scale = 1, className }: LogoProps) => {
   const { setAnimationCompletionStatus } = useAnimationStore();
 
   const logoContainerVariants = {
@@ -60,7 +62,7 @@ export const Logo = ({ layoutId, scale = 1 }: LogoProps) => {
       variants={logoContainerVariants}
       initial="hidden"
       animate="visible"
-      className="text-2xl font-bold text-primary"
+      className={cn('text-2xl font-bold text-primary', className)}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
       onAnimationComplete={() => setAnimationCompletionStatus('logo')}

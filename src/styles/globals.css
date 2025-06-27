@@ -8,7 +8,8 @@
   --color-*: initial;
 
   /* Colors */
-  --color-purple: rgb(93, 63, 211, 1);
+  --color-purple: rgba(93, 63, 211, 1);
+  --color-red: rgba(210, 43, 43);
   --color-dark-gray: rgba(96, 107, 108, 1);
   --color-blue-gray: rgba(173, 194, 195, 1);
   --color-blue-black: rgba(24, 30, 31, 1);
@@ -22,6 +23,9 @@
 
   /* Form */
   --input-height: 64px;
+
+  /* header */
+  --header-height: 80px;
 }
 
 @theme inline {
@@ -54,13 +58,5 @@
     fill: var(--color-light-gray);
     padding-right: 4px;
     margin-top: 16px;
-  }
-}
-
-button {
-  cursor: pointer;
-
-  &:disabled {
-    cursor: not-allowed;
   }
 }
