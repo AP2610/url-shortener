@@ -37,7 +37,7 @@ export const EntryAnimation = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <Logo layoutId="logo" scale={4} />
+          <Logo layoutId="logo" scale={3} />
         </motion.div>
       )}
     </AnimatePresence>
