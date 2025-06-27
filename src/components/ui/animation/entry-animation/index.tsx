@@ -1,23 +1,14 @@
 'use client';
 
 import { Logo } from '@/components/ui/logo';
-import { useMediaQuery } from '@/hooks/use-media-query';
 import useAnimationStore from '@/lib/stores/animation-store';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 
 export const EntryAnimation = () => {
   const [showEntryAnimation, setShowEntryAnimation] = useState(true);
-  const [logoScale, setLogoScale] = useState(4);
   const { animationCompletionStatus, setAnimationCompletionStatus } = useAnimationStore();
   const isLogoCompleted = animationCompletionStatus['logo'];
-  const isMediumScreen = useMediaQuery('md');
-
-  useEffect(() => {
-    if (isMediumScreen !== null) {
-      setLogoScale(isMediumScreen ? 4 : 2.5);
-    }
-  }, [isMediumScreen]);
 
   useEffect(() => {
     if (isLogoCompleted) {
@@ -46,7 +37,7 @@ export const EntryAnimation = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <Logo layoutId="logo" scale={logoScale} />
+          <Logo layoutId="logo" scale={4} />
         </motion.div>
       )}
     </AnimatePresence>
