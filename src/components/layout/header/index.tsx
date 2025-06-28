@@ -15,7 +15,7 @@ export const Header = () => {
   if (isLoginPage || isRegisterPage) return null;
 
   return (
-    <header className="fixed top-0 right-0 left-0 z-50 container mx-auto flex h-[var(--header-height)] items-center justify-between p-4">
+    <header className="fixed top-0 right-0 left-0 z-50 container mx-auto flex h-[var(--header-height)] items-center justify-between bg-background p-4">
       <Link href="/">
         <Logo layoutId="logo" />
       </Link>
