@@ -15,12 +15,6 @@ export const useFloatingLabel = ({ autoFocus, onFocus, onBlur, onChange }: UseFl
   const [shouldFloatLabel, setShouldFloatLabel] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    console.log('handleBlur', event.target.value);
-    setIsFocused(false);
-    onBlur?.(event);
-  };
-
   // Handle autoFocus state
   useEffect(() => {
     if (autoFocus && inputRef.current) {
@@ -40,6 +34,11 @@ export const useFloatingLabel = ({ autoFocus, onFocus, onBlur, onChange }: UseFl
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setHasValue(event.target.value.length > 0);
     onChange?.(event);
+  };
+
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    setIsFocused(false);
+    onBlur?.(event);
   };
 
   return {
