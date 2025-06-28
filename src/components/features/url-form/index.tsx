@@ -6,8 +6,10 @@ import { Button } from '@/components/ui/button';
 import { MyDatePicker } from '@/components/ui/date-picker';
 import { Heading } from '@/components/ui/heading';
 import { Modal } from '@/components/ui/modal';
+import { useFloatingLabel } from '@/hooks/use-floating-label';
 import { useModal } from '@/hooks/use-modal';
 import useAnimationStore from '@/lib/stores/animation-store';
+import { cn } from '@/lib/utils/cn';
 import { sanitizeUrlInput, validateUrl } from '@/lib/utils/url-utils';
 import { motion, type Variants } from 'motion/react';
 import { useRef, useState } from 'react';
@@ -65,6 +67,7 @@ export const UrlForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { isOpen, showModal, closeModal } = useModal();
   const { animationCompletionStatus } = useAnimationStore();
+  const { shouldFloatLabel, handleFocus, handleBlur, handleChange } = useFloatingLabel({});
 
   const isEntryAnimationComplete = animationCompletionStatus['entry-animation'];
 
@@ -162,12 +165,18 @@ export const UrlForm = () => {
               className="peer h-full w-full appearance-none pt-7 pr-4 pb-3 pl-12 text-light-gray transition-all focus:outline-none"
               type="url"
               name="url"
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              onChange={handleChange}
             />
 
             <CiLink className="absolute top-1/2 left-3 h-6 w-6 -translate-y-1/2 -rotate-45 text-dark-gray transition-all peer-focus:rotate-45 peer-focus:text-primary" />
 
             <label
-              className="absolute left-12 text-dark-gray transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:top-4 peer-focus:-translate-y-1/2 peer-focus:text-[11px] peer-[:not(:placeholder-shown)]:top-4 peer-[:not(:placeholder-shown)]:-translate-y-1/2 peer-[:not(:placeholder-shown)]:text-[11px]"
+              className={cn(
+                'absolute left-12 text-dark-gray transition-all',
+                shouldFloatLabel ? 'top-4 -translate-y-1/2 text-[11px]' : 'top-1/2 -translate-y-1/2 text-base',
+              )}
               htmlFor="url"
             >
               Enter your link here

@@ -1,9 +1,10 @@
 'use client';
 
+import { useFloatingLabel } from '@/hooks/use-floating-label';
 import { cn } from '@/lib/utils/cn';
-import { InputHTMLAttributes, useEffect, useRef, useState } from 'react';
+import { InputHTMLAttributes, useState } from 'react';
+import { IoEye, IoEyeOff } from 'react-icons/io5';
 import { Button } from '../../button';
-import { IoEyeOff, IoEye } from 'react-icons/io5';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
@@ -11,38 +12,32 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   inputClassName?: string;
   labelClassName?: string;
   validationMessage?: string | null;
+  manualAutoFocus?: boolean;
 }
 
-export const Input = ({ label, containerClassName, inputClassName, labelClassName, validationMessage, ...props }: InputProps) => {
+export const Input = ({
+  label,
+  containerClassName,
+  inputClassName,
+  labelClassName,
+  validationMessage,
+  onBlur,
+  onFocus,
+  onChange,
+  ...props
+}: InputProps) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
-  const [hasValue, setHasValue] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Need to use a hook to handle the label floating state due to mobile behavior
+  const { inputRef, shouldFloatLabel, handleFocus, handleBlur, handleChange } = useFloatingLabel({
+    autoFocus: props.autoFocus,
+    onFocus,
+    onBlur,
+    onChange,
+  });
+
   const isPassword = props.type === 'password';
   const inputType = isPassword && showPassword ? 'text' : props.type;
-
-  const shouldFloatLabel = isFocused || hasValue;
-
-  useEffect(() => {
-    if (inputRef.current && props.autoFocus) {
-      inputRef.current.focus();
-    }
-  }, [inputRef]);
-
-  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    setIsFocused(false);
-    props.onBlur?.(event);
-  };
-
-  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
-    setIsFocused(true);
-    props.onFocus?.(event);
-  };
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setHasValue(event.target.value.length > 0);
-    props.onChange?.(event);
-  };
 
   return (
     <>
