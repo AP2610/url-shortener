@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils/cn';
-import { InputHTMLAttributes, useState } from 'react';
+import { InputHTMLAttributes, useEffect, useRef, useState } from 'react';
 import { Button } from '../../button';
 import { IoEyeOff, IoEye } from 'react-icons/io5';
 
@@ -15,8 +15,34 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 export const Input = ({ label, containerClassName, inputClassName, labelClassName, validationMessage, ...props }: InputProps) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const [hasValue, setHasValue] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
   const isPassword = props.type === 'password';
   const inputType = isPassword && showPassword ? 'text' : props.type;
+
+  const shouldFloatLabel = isFocused || hasValue;
+
+  useEffect(() => {
+    if (inputRef.current && props.autoFocus) {
+      inputRef.current.focus();
+    }
+  }, [inputRef]);
+
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    setIsFocused(false);
+    props.onBlur?.(event);
+  };
+
+  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+    setIsFocused(true);
+    props.onFocus?.(event);
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setHasValue(event.target.value.length > 0);
+    props.onChange?.(event);
+  };
 
   return (
     <>
@@ -28,12 +54,15 @@ export const Input = ({ label, containerClassName, inputClassName, labelClassNam
       >
         <input
           required
-          placeholder=""
           className={cn(
             'peer w-full appearance-none px-4 pt-7 pb-3 text-light-gray transition-all focus:outline-none',
             inputClassName,
           )}
           type={inputType}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          ref={inputRef}
           {...props}
         />
 
@@ -49,7 +78,8 @@ export const Input = ({ label, containerClassName, inputClassName, labelClassNam
 
         <label
           className={cn(
-            'absolute left-4 text-dark-gray transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:top-4 peer-focus:-translate-y-1/2 peer-focus:text-[11px] peer-[:not(:placeholder-shown)]:top-4 peer-[:not(:placeholder-shown)]:-translate-y-1/2 peer-[:not(:placeholder-shown)]:text-[11px]',
+            'absolute left-4 text-dark-gray transition-all',
+            shouldFloatLabel ? 'top-4 -translate-y-1/2 text-[11px]' : 'top-1/2 -translate-y-1/2 text-base',
             labelClassName,
           )}
           htmlFor={props.name}
