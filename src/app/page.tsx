@@ -1,14 +1,11 @@
 import { UrlForm } from '@/components/features/url-form';
 import { AnimatedElementPresence } from '@/components/ui/animation/animated-element-presence';
-import { EntryAnimation } from '@/components/ui/animation/entry-animation';
 import { Heading } from '@/components/ui/heading';
 import { MyLink } from '@/components/ui/my-link';
 
 const Home = () => {
   return (
     <div className="container mx-auto flex h-full flex-col items-center justify-center px-4 pt-[var(--header-height)] pb-10">
-      <EntryAnimation />
-
       <AnimatedElementPresence shouldWaitToAnimateFor="entry-animation">
         <div className="mb-8 flex flex-col items-center justify-center space-y-8 text-center md:mb-16">
           <Heading level="h1">Got a long URL? Shortly it!</Heading>
