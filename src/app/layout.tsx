@@ -1,7 +1,9 @@
+import { Footer } from '@/components/layout/footer';
+import { Header } from '@/components/layout/header';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import '../styles/globals.css';
-import { Header } from '@/components/layout/header';
+import { EntryAnimation } from '@/components/ui/animation/entry-animation';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -29,13 +31,12 @@ export default function RootLayout({
         <div className="flex h-dvh flex-col">
           <Header />
 
-          <main className="flex-grow">{children}</main>
+          <main className="flex-grow">
+            <EntryAnimation />
+            {children}
+          </main>
 
-          <footer>
-            <div className="container mx-auto px-4 pt-10 pb-4">
-              <p className="text-gray-500 text-sm">&copy; {new Date().getFullYear()} Shortly. All rights reserved.</p>
-            </div>
-          </footer>
+          <Footer />
         </div>
       </body>
     </html>

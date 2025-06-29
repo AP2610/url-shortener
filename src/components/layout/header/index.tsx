@@ -1,5 +1,6 @@
 'use client';
 
+import { AnimatedElementPresence } from '@/components/ui/animation/animated-element-presence';
 import { Logo } from '@/components/ui/logo';
 import { MyLink } from '@/components/ui/my-link';
 import Link from 'next/link';
@@ -21,7 +22,10 @@ export const Header = () => {
       </Link>
 
       {/* TODO: remove buttons when user is logged in */}
-      <div className="block text-sm md:flex md:items-center md:gap-4">
+      <AnimatedElementPresence
+        shouldWaitToAnimateFor="entry-animation"
+        className="block text-sm md:flex md:items-center md:gap-4"
+      >
         <MyLink href="/login" variant="secondary" className="flex items-center gap-2 rounded-full">
           Login
           <CiLogin className="h-6 w-6" />
@@ -30,7 +34,7 @@ export const Header = () => {
         <MyLink href="/sign-up" variant="primary" className="hidden rounded-full md:flex">
           Register Now
         </MyLink>
-      </div>
+      </AnimatedElementPresence>
     </header>
   );
 };

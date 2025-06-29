@@ -24,7 +24,11 @@ export const AnimatedElementPresence = ({
   useEffect(() => {
     if (!!shouldWaitToAnimateFor) {
       const isAnimationComplete = animationCompletionStatus[shouldWaitToAnimateFor];
-      setShowAnimation(isAnimationComplete);
+
+      // Handle the case where the aniimation does not run (for whatever reason, for example, if its disabled)
+      setShowAnimation(isAnimationComplete ?? true);
+    } else {
+      setShowAnimation(true);
     }
   }, [shouldWaitToAnimateFor, animationCompletionStatus]);
 
