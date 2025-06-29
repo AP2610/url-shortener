@@ -7,6 +7,8 @@ import { Heading } from '@/components/ui/heading';
 import { MyLink } from '@/components/ui/my-link';
 import { redirect } from 'next/navigation';
 
+export const dynamic = 'force-dynamic';
+
 interface ShortUrlPageProps {
   params: Promise<{ shortCode: string }>;
 }
