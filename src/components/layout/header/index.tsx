@@ -18,7 +18,7 @@ export const Header = () => {
   return (
     <header className="fixed top-0 right-0 left-0 z-50 container mx-auto flex h-[var(--header-height)] items-center justify-between bg-background p-4">
       <Link href="/">
-        <Logo layoutId="logo" />
+        <Logo layoutId="logo" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} />
       </Link>
 
       {/* TODO: remove buttons when user is logged in */}
