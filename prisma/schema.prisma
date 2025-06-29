@@ -26,13 +26,14 @@ model User {
 }
 
 model URL {
-  id         Int       @id @default(autoincrement())
-  url        String
-  shortCode  String    @unique
-  shortUrl   String    @unique
-  visitCount Int       @default(0)
-  createdAt  DateTime  @default(now())
-  expiresAt  DateTime?
-  userId     Int?
-  user       User?     @relation(fields: [userId], references: [id])
+  id            Int       @id @default(autoincrement())
+  url           String
+  shortCode     String    @unique
+  shortUrl      String    @unique
+  visitCount    Int       @default(0)
+  createdAt     DateTime  @default(now())
+  expiresAt     DateTime?
+  userId        Int?
+  user          User?     @relation(fields: [userId], references: [id])
+  lastVisitedAt DateTime?
 }
