@@ -32,7 +32,7 @@ const slideXAnimation = {
   },
 };
 
-const LOGO_TEXT = 'SHORTLY';
+export const LOGO_TEXT = 'SHORTLY';
 
 interface LogoProps {
   shouldAnimate?: boolean;
