@@ -95,6 +95,7 @@ export const AuthenticationForm = ({ onSubmit, formTitle, buttonText, type }: Au
 
       <div className="w-full space-y-4">
         <Input
+          id="email"
           label="Enter your email"
           autoFocus
           required
@@ -108,6 +109,7 @@ export const AuthenticationForm = ({ onSubmit, formTitle, buttonText, type }: Au
         />
 
         <Input
+          id="password"
           label="Enter your password"
           required
           type="password"

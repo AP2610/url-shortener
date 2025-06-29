@@ -8,6 +8,8 @@ import { Button } from '../../button';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
+  id: string;
+  inputRef?: React.RefObject<HTMLInputElement | null>;
   containerClassName?: string;
   inputClassName?: string;
   labelClassName?: string;
@@ -17,10 +19,12 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 export const Input = ({
   label,
+  id,
   containerClassName,
   inputClassName,
   labelClassName,
   validationMessage,
+  inputRef,
   onBlur,
   onFocus,
   onChange,
@@ -29,7 +33,7 @@ export const Input = ({
   const [showPassword, setShowPassword] = useState(false);
 
   // Need to use a hook to handle the label floating state due to mobile behavior
-  const { inputRef, shouldFloatLabel, handleFocus, handleBlur, handleChange } = useFloatingLabel({
+  const { shouldFloatLabel, handleFocus, handleBlur, handleChange } = useFloatingLabel({
     autoFocus: props.autoFocus,
     onFocus,
     onBlur,
@@ -48,6 +52,7 @@ export const Input = ({
         )}
       >
         <input
+          id={id}
           required
           className={cn(
             'peer w-full appearance-none px-4 pt-7 pb-3 text-light-gray transition-all focus:outline-none',
@@ -77,7 +82,7 @@ export const Input = ({
             shouldFloatLabel ? 'top-4 -translate-y-1/2 text-[11px]' : 'top-1/2 -translate-y-1/2 text-base',
             labelClassName,
           )}
-          htmlFor={props.name}
+          htmlFor={id}
         >
           {label}
         </label>
