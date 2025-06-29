@@ -4,6 +4,10 @@ import { type URL } from '../../../generated/prisma';
 import { formatDate } from '@/lib/utils/format-date';
 import { cn } from '@/lib/utils/cn';
 
+// TODO add revalidate
+
+export const dynamic = 'force-dynamic';
+
 const AdminPage = async () => {
   // TODO: Add guard for admin authentication
   // TODO: Add sorting for createdAt, lastVisitedAt, and visitCount
