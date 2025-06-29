@@ -214,7 +214,8 @@ export const UrlForm = () => {
 
             <CiLink className="absolute top-1/2 left-3 h-6 w-6 -translate-y-1/2 -rotate-45 text-dark-gray transition-all peer-focus:rotate-45 peer-focus:text-primary" />
 
-            <label
+            <motion.label
+              variants={fadeInVariants}
               className={cn(
                 'absolute left-12 text-dark-gray transition-all',
                 shouldFloatLabelUrlInput ? 'top-4 -translate-y-1/2 text-[11px]' : 'top-1/2 -translate-y-1/2 text-base',
@@ -222,7 +223,7 @@ export const UrlForm = () => {
               htmlFor="url"
             >
               Enter your link here
-            </label>
+            </motion.label>
           </motion.div>
 
           <motion.div variants={slideXRightVariants} className="relative h-[var(--input-height)] w-full md:w-[25%]">
