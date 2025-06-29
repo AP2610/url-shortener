@@ -14,6 +14,7 @@ import { sanitizeUrlInput, validateUrl } from '@/lib/utils/url-utils';
 import { motion, type Variants } from 'motion/react';
 import { useRef, useState } from 'react';
 import { CiLink } from 'react-icons/ci';
+import { IoMdCheckmark } from 'react-icons/io';
 import { IoCopyOutline } from 'react-icons/io5';
 
 const containerVariants: Variants = {
@@ -65,6 +66,7 @@ export const UrlForm = () => {
   const [expiryDate, setExpiryDate] = useState(new Date());
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
   const { isOpen, showModal, closeModal } = useModal();
   const { animationCompletionStatus } = useAnimationStore();
   const { shouldFloatLabel, handleFocus, handleBlur, handleChange } = useFloatingLabel({});
@@ -83,6 +85,7 @@ export const UrlForm = () => {
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
+    setIsCopied(false);
 
     const formData = new FormData(event.currentTarget);
     const url = sanitizeUrlInput(formData.get('url') as string);
@@ -140,6 +143,7 @@ export const UrlForm = () => {
     copyTextInput.setSelectionRange(0, 99999);
 
     navigator.clipboard.writeText(copyTextInput.value);
+    setIsCopied(true);
   };
 
   // TODO: show error message below url input
@@ -232,9 +236,11 @@ export const UrlForm = () => {
                 className="rounded-l-none rounded-r-sm border-0 text-light-gray"
                 onClick={handleCopyToClipboard}
               >
-                <IoCopyOutline className="h-6 w-6" />
+                {isCopied ? <IoMdCheckmark className="h-6 w-6" /> : <IoCopyOutline className="h-6 w-6" />}
               </Button>
             </div>
+
+            {isCopied && <p className="text-center text-sm text-dark-gray">Copied to clipboard!</p>}
           </div>
         </Modal>
       )}

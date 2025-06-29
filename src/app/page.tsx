@@ -6,7 +6,7 @@ import { MyLink } from '@/components/ui/my-link';
 
 const Home = () => {
   return (
-    <div className="container mx-auto flex h-full flex-col items-center justify-center px-4 pt-[var(--header-height)]">
+    <div className="container mx-auto flex h-full flex-col items-center justify-center px-4 pt-[var(--header-height)] pb-10">
       <EntryAnimation />
 
       <AnimatedElementPresence shouldWaitToAnimateFor="entry-animation">
