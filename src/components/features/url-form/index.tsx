@@ -15,7 +15,7 @@ import { motion, type Variants } from 'motion/react';
 import { useRef, useState } from 'react';
 import { CiLink } from 'react-icons/ci';
 import { IoMdCheckmark } from 'react-icons/io';
-import { IoCopyOutline } from 'react-icons/io5';
+import { IoCalendarNumberOutline, IoCopyOutline } from 'react-icons/io5';
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -63,23 +63,56 @@ const fadeInVariants: Variants = {
 
 export const UrlForm = () => {
   const [shortUrl, setShortUrl] = useState<string | null>(null);
-  const [expiryDate, setExpiryDate] = useState(new Date());
+  const [expiryDate, setExpiryDate] = useState<Date | null>(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
+  const [isDatePickerFocussed, setIsDatePickerFocussed] = useState(false);
   const { isOpen, showModal, closeModal } = useModal();
   const { animationCompletionStatus } = useAnimationStore();
-  const { shouldFloatLabel, handleFocus, handleBlur, handleChange } = useFloatingLabel({});
 
+  const {
+    setHasValue: setHasValueForLabelUrlInput,
+    shouldFloatLabel: shouldFloatLabelUrlInput,
+    handleFocus: handleFocusUrlInput,
+    handleBlur: handleBlurUrlInput,
+    handleChange: handleChangeForLabelUrlInput,
+  } = useFloatingLabel({});
+  const {
+    setHasValue: setHasValueForLabelDatePicker,
+    shouldFloatLabel: shouldFloatLabelDatePicker,
+    handleFocus: handleFocusForLabelDatePicker,
+    handleBlur: handleBlurForLabelDatePicker,
+    handleChange: handleChangeForLabelDatePicker,
+  } = useFloatingLabel({});
   const isEntryAnimationComplete = animationCompletionStatus['entry-animation'];
 
   const urlInputRef = useRef<HTMLInputElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
   const urlOutputRef = useRef<HTMLInputElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   console.log(errorMessage);
 
   const handleDateChange = (date: Date | null) => {
-    setExpiryDate(date as Date);
+    // Need to create a fake event to trigger the handleChange function because datepicker doesn't expose event
+    const fakeEvent = {
+      target: {
+        value: date ? date.toISOString() : '',
+        name: 'expiryDate',
+      },
+    } as React.ChangeEvent<HTMLInputElement>;
+
+    handleChangeForLabelDatePicker(fakeEvent);
+    setExpiryDate(date);
+  };
+
+  const handleDatePickerFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+    handleFocusForLabelDatePicker(event);
+    setIsDatePickerFocussed(true);
+  };
+
+  const handleDatePickerBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    handleBlurForLabelDatePicker(event);
+    setIsDatePickerFocussed(false);
   };
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -127,7 +160,11 @@ export const UrlForm = () => {
 
       if (urlInputRef.current) {
         urlInputRef.current.value = '';
+        setHasValueForLabelUrlInput(false);
       }
+
+      setExpiryDate(null);
+      setHasValueForLabelDatePicker(false);
 
       if (buttonRef.current) {
         buttonRef.current.blur();
@@ -160,18 +197,19 @@ export const UrlForm = () => {
         >
           <motion.div
             variants={slideXLeftVariants}
-            className="relative h-[var(--input-height)] w-full rounded-sm border-2 border-dark-gray bg-blue-black focus-within:border-primary md:w-[60%] md:[border-top-left-radius:50px] md:[border-top-right-radius:4px] md:[border-bottom-right-radius:4px] md:[border-bottom-left-radius:50px]"
+            className="relative h-[var(--input-height)] w-full rounded-sm border-2 border-dark-gray bg-blue-black focus-within:border-primary md:w-[55%] md:[border-top-left-radius:50px] md:[border-top-right-radius:4px] md:[border-bottom-right-radius:4px] md:[border-bottom-left-radius:50px]"
           >
             <input
+              id="url"
               ref={urlInputRef}
               required
               placeholder=""
               className="peer h-full w-full appearance-none pt-7 pr-4 pb-3 pl-12 text-light-gray transition-all focus:outline-none"
               type="url"
               name="url"
-              onFocus={handleFocus}
-              onBlur={handleBlur}
-              onChange={handleChange}
+              onFocus={handleFocusUrlInput}
+              onBlur={handleBlurUrlInput}
+              onChange={handleChangeForLabelUrlInput}
             />
 
             <CiLink className="absolute top-1/2 left-3 h-6 w-6 -translate-y-1/2 -rotate-45 text-dark-gray transition-all peer-focus:rotate-45 peer-focus:text-primary" />
@@ -179,7 +217,7 @@ export const UrlForm = () => {
             <label
               className={cn(
                 'absolute left-12 text-dark-gray transition-all',
-                shouldFloatLabel ? 'top-4 -translate-y-1/2 text-[11px]' : 'top-1/2 -translate-y-1/2 text-base',
+                shouldFloatLabelUrlInput ? 'top-4 -translate-y-1/2 text-[11px]' : 'top-1/2 -translate-y-1/2 text-base',
               )}
               htmlFor="url"
             >
@@ -187,12 +225,31 @@ export const UrlForm = () => {
             </label>
           </motion.div>
 
-          <motion.div variants={slideXRightVariants} className="relative h-[var(--input-height)] w-full md:w-[20%]">
-            <MyDatePicker showIcon name="expiryDate" selected={expiryDate} onChange={handleDateChange} />
+          <motion.div variants={slideXRightVariants} className="relative h-[var(--input-height)] w-full md:w-[25%]">
+            <IoCalendarNumberOutline
+              className={cn(
+                'absolute top-1/2 left-3 z-1 h-6 w-6 -translate-y-1/2 text-dark-gray transition-all',
+                shouldFloatLabelDatePicker ? 'mt-2' : 'mt-0',
+                isDatePickerFocussed ? 'text-primary' : 'text-dark-gray',
+              )}
+            />
+
+            <MyDatePicker
+              id="expiryDate"
+              name="expiryDate"
+              selected={expiryDate}
+              onChange={handleDateChange}
+              minDate={new Date()}
+              onFocus={handleDatePickerFocus}
+              onBlur={handleDatePickerBlur}
+            />
             <motion.label
               variants={fadeInVariants}
               htmlFor="expiryDate"
-              className="absolute top-4 left-[20px] -translate-y-1/2 text-[11px] text-dark-gray"
+              className={cn(
+                'absolute left-12 text-dark-gray transition-all',
+                shouldFloatLabelDatePicker ? 'top-4 -translate-y-1/2 text-[11px]' : 'top-1/2 -translate-y-1/2 text-base',
+              )}
             >
               Expiry date
             </motion.label>

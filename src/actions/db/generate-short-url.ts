@@ -18,6 +18,7 @@ export const generateShortUrl = async ({
 }> => {
   const shortCode = generateShortCode();
   const shortUrl = `${BASE_URL}/${shortCode}`;
+  const defaultExpiry = new Date(Date.now() + 1 * 365 * 24 * 60 * 60 * 1000); // 1 year
 
   try {
     await prisma.uRL.create({
@@ -25,7 +26,7 @@ export const generateShortUrl = async ({
         url,
         shortCode,
         shortUrl,
-        expiresAt: expiryDate,
+        expiresAt: expiryDate || defaultExpiry,
       },
     });
 

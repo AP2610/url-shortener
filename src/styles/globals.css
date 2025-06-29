@@ -50,14 +50,8 @@
     }
 
     input {
-      @apply pt-7! pr-4! pb-3! pl-8!;
+      @apply w-full pt-7! pr-4! pb-3! pl-10!;
     }
-  }
-
-  .react-datepicker__calendar-icon {
-    fill: var(--color-light-gray);
-    padding-right: 4px;
-    margin-top: 16px;
   }
 }
 

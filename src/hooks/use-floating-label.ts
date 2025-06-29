@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface UseFloatingLabelProps {
   autoFocus?: boolean;
@@ -13,11 +13,10 @@ export const useFloatingLabel = ({ autoFocus, onFocus, onBlur, onChange }: UseFl
   const [isFocused, setIsFocused] = useState(false);
   const [hasValue, setHasValue] = useState(false);
   const [shouldFloatLabel, setShouldFloatLabel] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   // Handle autoFocus state
   useEffect(() => {
-    if (autoFocus && inputRef.current) {
+    if (autoFocus) {
       setIsFocused(true);
     }
   }, []);
@@ -42,8 +41,8 @@ export const useFloatingLabel = ({ autoFocus, onFocus, onBlur, onChange }: UseFl
   };
 
   return {
+    setHasValue,
     shouldFloatLabel,
-    inputRef,
     handleFocus,
     handleBlur,
     handleChange,
