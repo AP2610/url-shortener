@@ -20,6 +20,7 @@ export const Header = () => {
         <Logo layoutId="logo" />
       </Link>
 
+      {/* TODO: remove buttons when user is logged in */}
       <div className="block text-sm md:flex md:items-center md:gap-4">
         <MyLink href="/login" variant="secondary" className="flex items-center gap-2 rounded-full">
           Login
