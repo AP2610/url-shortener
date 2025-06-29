@@ -1,3 +1,4 @@
+import { AnimatedRadialGradientBackground } from '@/components/ui/animation/animated-radial-gradient-background';
 import { Logo } from '@/components/ui/logo';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -14,7 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <div className="relative h-full">
-      <Link href="/" className="absolute top-4 left-4 md:left-12">
+      <AnimatedRadialGradientBackground />
+
+      <Link href="/" className="absolute top-4 left-4 z-10 md:left-12">
         <Logo />
       </Link>
 

@@ -90,7 +90,7 @@ export const AuthenticationForm = ({ onSubmit, formTitle, buttonText, type }: Au
   };
 
   return (
-    <form className="w-full space-y-8 rounded-sm bg-blue-black/80 p-8 md:w-90" onSubmit={handleSubmit}>
+    <form className="w-full space-y-8 rounded-sm bg-blue-black/70 p-8 shadow-md md:w-90" onSubmit={handleSubmit}>
       <Heading level="h2">{formTitle}</Heading>
 
       <div className="w-full space-y-4">
