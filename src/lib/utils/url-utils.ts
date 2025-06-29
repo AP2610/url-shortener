@@ -9,7 +9,7 @@ export const isUrlExpired = async (expiryDate: Date | null) => {
 };
 
 export const generateShortCode = (): string => {
-  return nanoid(6);
+  return `_${nanoid(6)}`;
 };
 
 export const sanitizeUrlInput = (url: string): string => {
