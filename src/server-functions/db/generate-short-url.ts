@@ -1,6 +1,7 @@
 'use server';
 
 import prisma from '@/lib/db/prisma';
+import { UrlGenerationResult } from '@/lib/types/db';
 import { generateShortCode } from '@/lib/utils/url-utils';
 
 const BASE_URL = process.env.BASE_URL;
@@ -10,12 +11,8 @@ export const generateShortUrl = async ({
   expiryDate,
 }: {
   url: string;
-  expiryDate: Date;
-}): Promise<{
-  hasError: boolean;
-  message: string;
-  shortUrl: string;
-}> => {
+  expiryDate: Date | null;
+}): Promise<UrlGenerationResult> => {
   const shortCode = generateShortCode();
   const shortUrl = `${BASE_URL}/${shortCode}`;
   const defaultExpiry = new Date(Date.now() + 1 * 365 * 24 * 60 * 60 * 1000); // 1 year

@@ -12,7 +12,8 @@ const ExpiredPage = () => {
         </Heading>
 
         <div className="flex flex-col gap-4">
-          <p>Whoops! Looks like that link has expired</p>
+          <p className="text-dark-gray">Whoops! Looks like that link has expired</p>
+
           <MyLink variant="primary" href="/">
             Homepage
           </MyLink>
