@@ -1,6 +1,6 @@
 'use client';
 
-import { generateShortUrl } from '@/actions/db/generate-short-url';
+import { generateShortUrl } from '@/server-functions/db/generate-short-url';
 import { DotLoader } from '@/components/ui/animation/dot-loader';
 import { Button } from '@/components/ui/button';
 import { MyDatePicker } from '@/components/ui/date-picker';
