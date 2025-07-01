@@ -1,5 +1,5 @@
 import { Heading } from '@/components/ui/heading';
-import { LOGO_TEXT } from '@/components/ui/logo';
+import { LOGO_TEXT } from '@/components/ui/logo/entry-animation-logo';
 import { AnimatedText } from '@/components/ui/animation/animated-text';
 
 const Loading = () => {

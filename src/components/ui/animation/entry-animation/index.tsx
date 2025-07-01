@@ -1,14 +1,20 @@
 'use client';
 
-import { Logo } from '@/components/ui/logo';
+import { EntryAnimationLogo } from '@/components/ui/logo/entry-animation-logo';
 import useAnimationStore from '@/lib/stores/animation-store';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 
 export const EntryAnimation = () => {
-  const [showEntryAnimation, setShowEntryAnimation] = useState(true);
   const { animationCompletionStatus, setAnimationCompletionStatus } = useAnimationStore();
-  const isLogoCompleted = animationCompletionStatus['logo'];
+  const [showEntryAnimation, setShowEntryAnimation] = useState(true);
+  const isLogoCompleted = animationCompletionStatus['entry-animation-logo'];
+
+  // Animation only shows once on page load and not on navigation as Zustand state persists across navigation
+  // Zustand state lives in-memory and is not persisted across navigation.
+  // Due to this, when navigating back to the homepage, logoCompletion state is true, so useEffect runs again and sets showEntryAnimation to false.
+  // However, if you open the site in a new tab, the animation will show again
+  // Another option would be to set a cookie to track if the animation has been shown
 
   useEffect(() => {
     if (isLogoCompleted) {
@@ -37,7 +43,7 @@ export const EntryAnimation = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <Logo layoutId="logo" scale={3} />
+          <EntryAnimationLogo layoutId="logo" />
         </motion.div>
       )}
     </AnimatePresence>

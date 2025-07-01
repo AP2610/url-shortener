@@ -56,5 +56,5 @@
 }
 
 .radial-background-gradient {
-  background: radial-gradient(circle, rgba(93, 63, 211, 0.8) 3%, rgba(93, 63, 211, 0.3) 35%, transparent 55%);
+  background: radial-gradient(circle, rgba(93, 63, 211, 0.8) 3%, rgba(93, 63, 211, 0.3) 25%, transparent 35%);
 }
