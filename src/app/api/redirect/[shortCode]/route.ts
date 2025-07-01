@@ -1,6 +1,6 @@
-import { getUrlRecord } from '@/actions/db/get-url-record';
-import { incrementVisitCount } from '@/actions/db/increment-visit-count';
-import { setLastVisited } from '@/actions/db/set-last-visited';
+import { getUrlRecord } from '@/server-functions/db/get-url-record';
+import { incrementVisitCount } from '@/server-functions/db/increment-visit-count';
+import { setLastVisited } from '@/server-functions/db/set-last-visited';
 import { isValidShortcode } from '@/lib/utils/shortcode-utils';
 import { NextRequest, NextResponse } from 'next/server';
 
