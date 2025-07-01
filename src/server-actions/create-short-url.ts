@@ -8,8 +8,6 @@ export const createShortUrl = async (prevState: UrlGenerationResult, formData: F
   const url = sanitizeUrlInput(formData.get('url') as string);
   const expiryDate = formData.get('expiryDate') as string;
 
-  console.log('expiryDate: ', expiryDate);
-
   const { isValid, errorMessage } = validateUrl(url);
 
   if (!isValid && errorMessage) {
