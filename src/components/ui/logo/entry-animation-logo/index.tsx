@@ -34,23 +34,19 @@ const slideXAnimation = {
 
 export const LOGO_TEXT = 'SHORTLY';
 
-interface LogoProps {
+interface EntryAnimationLogoProps extends MotionProps {
   shouldAnimate?: boolean;
   layoutId?: string;
-  scale?: number;
   className?: string;
-  whileHover?: MotionProps['whileHover'];
-  whileTap?: MotionProps['whileTap'];
 }
 
-export const Logo = ({ layoutId, scale = 1, className, whileHover, whileTap }: LogoProps) => {
+export const EntryAnimationLogo = ({ layoutId, className, ...props }: EntryAnimationLogoProps) => {
   const { setAnimationCompletionStatus } = useAnimationStore();
 
   const logoContainerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      scale,
       transition: {
         duration: 0.5,
         staggerChildren: 0.4,
@@ -64,12 +60,11 @@ export const Logo = ({ layoutId, scale = 1, className, whileHover, whileTap }: L
       variants={logoContainerVariants}
       initial="hidden"
       animate="visible"
-      className={cn('text-2xl font-bold text-primary', className)}
-      whileHover={whileHover}
-      whileTap={whileTap}
-      onAnimationComplete={() => setAnimationCompletionStatus('logo')}
+      className={cn('text-9xl font-bold text-primary', className)}
+      onAnimationComplete={() => setAnimationCompletionStatus('entry-animation-logo')}
       layoutId={layoutId}
       viewport={{ once: true }}
+      {...props}
     >
       {[...LOGO_TEXT].map((letter, index) => (
         <motion.span
