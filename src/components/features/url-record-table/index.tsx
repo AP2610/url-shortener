@@ -1,11 +1,12 @@
 'use client';
 
-import { cn } from '@/lib/utils/cn';
-
 import { type URL } from '@/generated/prisma';
 import { formatDate } from '@/lib/utils/format-date';
-import { TableHeader } from './table-header';
+import { cn } from '@/lib/utils/cn';
+
 import { TABLE_HEADERS } from './constants';
+import { TableCell } from './table-cell';
+import { TableHeader } from './table-header';
 
 interface URLRecordTableProps {
   urlRecords: URL[];
@@ -14,8 +15,6 @@ interface URLRecordTableProps {
 }
 
 export const URLRecordTable = ({ urlRecords, containerClassName, tableClassName }: URLRecordTableProps) => {
-  const tableCellClasses = 'border border-dark-gray px-4 py-2 truncate';
-
   return (
     <div className={cn('w-full overflow-x-auto', containerClassName)}>
       {/* Table fixed forces table to respect column widths, critical for truncating to work on the cells */}
@@ -34,16 +33,17 @@ export const URLRecordTable = ({ urlRecords, containerClassName, tableClassName 
             ))}
           </tr>
         </thead>
+
         <tbody>
           {urlRecords.map((urlRecord, index) => (
             <tr key={urlRecord.id}>
-              <td className={cn(tableCellClasses)}>{index + 1}</td>
-              <td className={cn(tableCellClasses)}>{urlRecord.url}</td>
-              <td className={cn(tableCellClasses)}>{urlRecord.shortUrl}</td>
-              <td className={cn(tableCellClasses)}>{formatDate(urlRecord.createdAt)}</td>
-              <td className={cn(tableCellClasses)}>{urlRecord.lastVisitedAt ? formatDate(urlRecord.lastVisitedAt) : 'N/A'}</td>
-              <td className={cn(tableCellClasses)}>{urlRecord.visitCount}</td>
-              <td className={cn(tableCellClasses)}>{urlRecord.expiresAt ? formatDate(urlRecord.expiresAt) : 'N/A'}</td>
+              <TableCell>{index + 1}</TableCell>
+              <TableCell>{urlRecord.url}</TableCell>
+              <TableCell>{urlRecord.shortUrl}</TableCell>
+              <TableCell>{formatDate(urlRecord.createdAt)}</TableCell>
+              <TableCell>{urlRecord.lastVisitedAt ? formatDate(urlRecord.lastVisitedAt) : 'N/A'}</TableCell>
+              <TableCell>{urlRecord.visitCount}</TableCell>
+              <TableCell>{urlRecord.expiresAt ? formatDate(urlRecord.expiresAt) : 'N/A'}</TableCell>
             </tr>
           ))}
         </tbody>
