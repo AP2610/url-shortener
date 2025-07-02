@@ -1,6 +1,5 @@
 import { Heading } from '@/components/ui/heading';
 import prisma from '@/lib/db/prisma';
-import { type URL } from '@/generated/prisma';
 import { URLRecordTable } from '@/components/features/url-record-table';
 
 // TODO add revalidate
@@ -11,10 +10,9 @@ export const dynamic = 'force-dynamic';
 
 const AdminPage = async () => {
   // TODO: Add guard for admin authentication
-  // TODO: Add sorting for createdAt, lastVisitedAt, and visitCount
   // TODO: Fetch additional records on scroll
 
-  const allUrlRecords: URL[] = await prisma.uRL.findMany({
+  const allUrlRecords = await prisma.uRL.findMany({
     orderBy: {
       createdAt: 'desc',
     },
