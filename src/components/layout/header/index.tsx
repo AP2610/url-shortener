@@ -21,7 +21,7 @@ export const Header = () => {
         <HeaderLogo layoutId="logo" />
       </Link>
 
-      {/* TODO: remove buttons when user is logged in */}
+      {/* TODO: remove buttons when user is logged in. add logout bbutton, button to see your shortlinks and button to the admin panel if the user is an admin. */}
       <AnimatedElementPresence
         shouldWaitToAnimateFor="entry-animation"
         className="block text-sm md:flex md:items-center md:gap-4"

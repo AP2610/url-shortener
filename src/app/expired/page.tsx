@@ -3,6 +3,7 @@ import { AnimatedElementPresence } from '@/components/ui/animation/animated-elem
 import { Heading } from '@/components/ui/heading';
 import { MyLink } from '@/components/ui/my-link';
 
+// TODO: Make it so that this page is only accessible via a redirect from the API route and not if you just enter it in the browser.
 const ExpiredPage = () => {
   return (
     <>
