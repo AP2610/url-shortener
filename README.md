@@ -4,7 +4,7 @@ A modern, feature-rich URL shortening service built with Next.js 15, featuring a
 
 Try it out: https://url-shortener-ap2610.vercel.app/
 
-## �� Features
+## Features
 
 ### Core Functionality
 - **URL Shortening**: Convert long URLs into short links
@@ -22,7 +22,7 @@ Try it out: https://url-shortener-ap2610.vercel.app/
 - **Database Integration**: PrismaPostgres using Vercel integration
 - **Server Actions and Functions**: Next.js server-side form handling
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 - Next.js 15 - App router
@@ -64,7 +64,7 @@ Try it out: https://url-shortener-ap2610.vercel.app/
 - **Input Validation**: Server-side sanitization
 - **Database**: Prisma Accelerate for connection pooling
 
-## 🔧 Getting Started
+## Getting Started
 
 Running this locally is not very straightforward as you will need your own development database that is created using Vercel. If you want to, you'll have to go through those setup steps. The same goes with Auth, it will require the creation of a Clerk account (auth is still being implemented). If you just want to go through the code in your own IDE, feel free to clone it and use the production URl to check out how everything comes together.
 
@@ -121,7 +121,7 @@ This project uses Vercel's Prisma Postgres integration. You'll need to:
    Navigate to [http://localhost:3000](http://localhost:3000)
 
 
-## 🔐 Authentication Status
+## Authentication Status
 
 **Currently in Development**: Authentication is being implemented using Clerk. The login and registration pages are currently placeholders and will be fully functional once the Clerk integration is complete.
 
