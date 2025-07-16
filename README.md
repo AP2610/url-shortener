@@ -1,36 +1,140 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Shortly - URL Shortening Service
 
-## Getting Started
+A modern, feature-rich URL shortening service built with Next.js 15, featuring a beautiful animated UI and comprehensive link management capabilities. The main goal of this project was to learn Prisma, and to create some cool animations. This is **not** intended to be an actual tool used by the public, its more to play around with different technologies and learn.
 
-First, run the development server:
+Try it out: https://url-shortener-ap2610.vercel.app/
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## �� Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Core Functionality
+- **URL Shortening**: Convert long URLs into short links
+- **Custom Expiry Dates**: Set expiration dates for your shortened links (optional, defaults to one year)
+- **Admin Dashboard**: View statistics for shortened URLs (per user basis is being implemented along with authentication)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### User Experience
+- **Beautiful Animations**: Smooth, modern UI with motion animations
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
+- **Copy to Clipboard**: One-click copying of shortened URLs
+- **Error Handling**: Error messages and validation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Technical Features
+- **URL Validation**: Input sanitization and validation
+- **Database Integration**: PrismaPostgres using Vercel integration
+- **Server Actions and Functions**: Next.js server-side form handling
 
-## Learn More
+## 🛠️ Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+### Frontend
+- Next.js 15 - App router
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Motion/Framer-motion
+- React Icons
+- React DatePicker
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Backend & Database
+- PrismaPostgres
+- Prisma Accelerate
+- Next.js API Routes
+- Next.js middleware
+- Nanoid for short-code generation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Authentication & Security
+- Clerk - Authentication service (currently being implemented)
 
-## Deploy on Vercel
+### Architecture
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### **SSR and SSG with App Router**
+- Admin dashboard renders server-side for up-to-date data, homepage is statically generated
+- **Server Actions**: Form handling for url-submission
+- **API Routes**: For redirects and authentication
+- **Middleware**: Request interception for authentication and shortcode routing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+#### **State Management**
+- **Zustand**: Used for animations
+
+#### **Data Flow**
+1. **URL Creation**: Form → Server Action → Database → Response
+2. **URL Redirect**: Short URL → Middleware → API Route → Database → Redirect
+3. **Admin Dashboard**: Protected Route (currently being implemented) → Server Component → Database → Table
+
+#### **Security & Performance**
+- **Authentication**: Clerk integration for user management (currently being implemented)
+- **Input Validation**: Server-side sanitization
+- **Database**: Prisma Accelerate for connection pooling
+
+## 🔧 Getting Started
+
+Running this locally is not very straightforward as you will need your own development database that is created using Vercel. If you want to, you'll have to go through those setup steps. The same goes with Auth, it will require the creation of a Clerk account (auth is still being implemented). If you just want to go through the code in your own IDE, feel free to clone it and use the production URl to check out how everything comes together.
+
+### Prerequisites
+- Node.js 20+ 
+- PrismaPostgres set up with Vercel
+- Clerk account (for authentication)
+
+## 🗄️ Database Setup
+
+### **Vercel Prisma Postgres Required**
+This project uses Vercel's Prisma Postgres integration. You'll need to:
+
+1. **Create Vercel Account**: Sign up at [vercel.com](https://vercel.com)
+2. **Create New Project**: Set up a new Vercel project
+3. **Add Prisma Postgres**: In Vercel dashboard → Storage → Create Database → Postgres
+4. **Enable Prisma Integration**: Vercel will provide connection strings
+5. **Set Environment Variables**: Use the development database URL in `.env.local`
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd url-shortener
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   Create a `.env.local` file with:
+   ```env
+   DATABASE_URL="from_vercel"
+   BASE_URL=http://localhost:3000
+   CLERK_SECRET_KEY="your_clerk_secret_key"
+   CLERK_PUBLISHABLE_KEY="your_clerk_publishable_key"
+   ```
+
+4. **Set up the database**
+   ```bash
+   npx prisma generate
+   npx prisma migrate deploy
+   ```
+
+5. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+6. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+
+## 🔐 Authentication Status
+
+**Currently in Development**: Authentication is being implemented using Clerk. The login and registration pages are currently placeholders and will be fully functional once the Clerk integration is complete.
+
+### Planned Authentication Features
+- User registration and login (currently just placeholders)
+- Protected routes for user-specific features
+- Admin dashboard (currently open, but will be protected)
+- User-specific URL list
+
+## Known Issues & TODOs
+
+- Authentication system is currently being implemented
+- Admin panel authentication guard needs to be added
+- Rate limiting is yet to be implemented
+- Password show/hide button currently has a bug
+
