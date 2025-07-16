@@ -88,7 +88,7 @@ This project uses Vercel's Prisma Postgres integration. You'll need to:
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone git@github.com:AP2610/url-shortener.git
    cd url-shortener
    ```
 
