@@ -10,7 +10,8 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@prisma/client": "^6.10.1",
+    "@clerk/nextjs": "^6.23.3",
+    "@prisma/client": "^6.11.1",
     "@prisma/extension-accelerate": "^2.0.1",
     "@typescript-eslint/eslint-plugin": "^8.35.0",
     "motion": "^12.19.1",
@@ -21,6 +22,7 @@
     "react-datepicker": "^8.4.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
+    "svix": "^1.69.0",
     "zustand": "^5.0.6"
   },
   "devDependencies": {
@@ -38,7 +40,7 @@
     "lint-staged": "^16.1.2",
     "prettier": "^3.6.0",
     "prettier-plugin-tailwindcss": "^0.6.13",
-    "prisma": "^6.10.1",
+    "prisma": "^6.11.1",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4",
     "tsx": "^4.20.3",
