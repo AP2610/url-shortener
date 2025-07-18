@@ -1,8 +1,13 @@
 'use client';
 
+import { cn } from '@/lib/utils/cn';
 import { motion, Variants } from 'motion/react';
 
-export const DotLoader = () => {
+interface DotLoaderProps {
+  color?: 'primary' | 'white';
+}
+
+export const DotLoader = ({ color = 'primary' }: DotLoaderProps) => {
   const container: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -24,6 +29,11 @@ export const DotLoader = () => {
     },
   };
 
+  const dotClassName = cn('h-2 w-2 rounded-full', {
+    'bg-primary': color === 'primary',
+    'bg-white': color === 'white',
+  });
+
   return (
     <motion.span
       className="inline-flex items-center justify-center space-x-2"
@@ -34,7 +44,7 @@ export const DotLoader = () => {
       whileTap={{ scale: 0.9 }}
     >
       {Array.from({ length: 4 }).map((_, index) => (
-        <motion.span key={index} className="h-2 w-2 rounded-full bg-primary" variants={childVariants}></motion.span>
+        <motion.span key={index} className={dotClassName} variants={childVariants}></motion.span>
       ))}
     </motion.span>
   );

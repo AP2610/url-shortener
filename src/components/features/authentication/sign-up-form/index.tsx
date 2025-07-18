@@ -3,28 +3,37 @@
 import { AuthenticationForm } from '@/components/features/authentication/authentication-form';
 import { VerificationForm } from '@/components/features/authentication/verification-form';
 import { useSignUp } from '@clerk/nextjs';
+import { isClerkAPIResponseError } from '@clerk/nextjs/errors';
+import { type ClerkAPIError } from '@clerk/types';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { type FormEvent, useState } from 'react';
 
 // TODO: Add loading state when submitting the form
 // TODO: Implement error handling
 export const SignUpForm = () => {
   const { isLoaded, signUp, setActive } = useSignUp();
   const [verifying, setVerifying] = useState(false);
+  const [errors, setErrors] = useState<ClerkAPIError[]>();
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   // Handle submission of the sign-up form
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    // Clear any errors that may have occurred during previous form submission
+    setErrors(undefined);
+
+    if (!isLoaded) return;
+
     const formData = new FormData(event.currentTarget);
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
 
-    if (!isLoaded) return;
-
     // Start the sign-up process using the email and password provided
     try {
+      setIsLoading(true);
+
       await signUp.create({
         emailAddress: email,
         password,
@@ -39,14 +48,18 @@ export const SignUpForm = () => {
       // and capture the OTP code
       setVerifying(true);
     } catch (err) {
-      // See https://clerk.com/docs/custom-flows/error-handling
-      // for more info on error handling
+      if (isClerkAPIResponseError(err)) {
+        setErrors(err.errors);
+      }
+
       console.error(JSON.stringify(err, null, 2));
+    } finally {
+      setIsLoading(false);
     }
   };
 
   // Handle the submission of the verification form
-  const handleVerify = async (event: React.FormEvent<HTMLFormElement>, code: string) => {
+  const handleVerify = async (event: FormEvent<HTMLFormElement>, code: string) => {
     event.preventDefault();
 
     if (!isLoaded) return;
@@ -81,7 +94,14 @@ export const SignUpForm = () => {
 
   return (
     <>
-      <AuthenticationForm buttonText="Sign Up" formTitle="Sign Up" onSubmit={handleSubmit} type="register" />
+      <AuthenticationForm
+        buttonText="Sign Up"
+        formTitle="Sign Up"
+        onSubmit={handleSubmit}
+        type="register"
+        errors={errors}
+        isLoading={isLoading}
+      />
 
       {/* Clerk captcha for bot protection */}
       <div id="clerk-captcha" />
