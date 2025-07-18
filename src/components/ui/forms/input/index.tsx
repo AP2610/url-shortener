@@ -31,6 +31,7 @@ export const Input = ({
   ...props
 }: InputProps) => {
   const [showPassword, setShowPassword] = useState(false);
+  const { type: inputTypeFromProps, ...restProps } = props;
 
   // Need to use a hook to handle the label floating state due to mobile behavior
   const { shouldFloatLabel, handleFocus, handleBlur, handleChange } = useFloatingLabel({
@@ -40,8 +41,8 @@ export const Input = ({
     onChange,
   });
 
-  const isPassword = props.type === 'password';
-  const inputType = isPassword && showPassword ? 'text' : props.type;
+  const isPassword = inputTypeFromProps === 'password';
+  const inputType = isPassword && showPassword ? 'text' : inputTypeFromProps;
 
   return (
     <>
@@ -58,19 +59,20 @@ export const Input = ({
             'peer w-full appearance-none px-4 pt-7 pb-3 text-light-gray transition-all focus:outline-none',
             inputClassName,
           )}
-          type={inputType}
           onFocus={handleFocus}
           onBlur={handleBlur}
           onChange={handleChange}
           ref={inputRef}
-          {...props}
+          type={inputType}
+          {...restProps}
         />
 
-        {props.type === 'password' && (
+        {inputTypeFromProps === 'password' && (
           <Button
+            type="button"
             variant="icon-button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute top-1/2 right-4 -translate-y-1/2 text-dark-gray transition-all hover:text-light-gray"
+            className="absolute top-1/2 right-4 z-10 -translate-y-1/2 text-dark-gray transition-all hover:text-light-gray"
           >
             {showPassword ? <IoEyeOff size={20} /> : <IoEye size={20} />}
           </Button>
