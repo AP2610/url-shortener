@@ -13,7 +13,6 @@ export const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  // Handle the submission of the sign-in form
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -41,8 +40,12 @@ export const LoginForm = () => {
         await setActive({ session: signInAttempt.createdSessionId });
         router.push('/');
       } else {
-        // If the status is not complete, check why. User may need to
-        // complete further steps.
+        setErrors([
+          {
+            code: 'email_sign_in_failed',
+            message: 'Sign in failed. Please try again or contact support if the problem persists.',
+          },
+        ]);
         console.error(JSON.stringify(signInAttempt, null, 2));
       }
     } catch (error) {

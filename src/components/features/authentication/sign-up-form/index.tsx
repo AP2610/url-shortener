@@ -44,15 +44,14 @@ export const SignUpForm = () => {
         strategy: 'email_code',
       });
 
-      // Set 'verifying' true to display second form
-      // and capture the OTP code
+      // Set 'verifying' true to display second form and capture the OTP code
       setVerifying(true);
-    } catch (err) {
-      if (isClerkAPIResponseError(err)) {
-        setErrors(err.errors);
+    } catch (error) {
+      if (isClerkAPIResponseError(error)) {
+        setErrors(error.errors);
       }
 
-      console.error(JSON.stringify(err, null, 2));
+      console.error(JSON.stringify(error, null, 2));
     } finally {
       setIsLoading(false);
     }
@@ -70,19 +69,24 @@ export const SignUpForm = () => {
         code,
       });
 
-      // If verification was completed, set the session to active
-      // and redirect the user
+      // If verification was completed, set the session to active and redirect the user
       if (signUpAttempt.status === 'complete') {
         await setActive({ session: signUpAttempt.createdSessionId });
         router.push('/');
       } else {
-        // If the status is not complete, check why. User may need to
-        // complete further steps.
+        setErrors([
+          {
+            code: 'email_sign_up_failed',
+            message: 'Sign up failed. Please try again or contact support if the problem persists.',
+          },
+        ]);
         console.error(JSON.stringify(signUpAttempt, null, 2));
       }
     } catch (err) {
-      // See https://clerk.com/docs/custom-flows/error-handling
-      // for more info on error handling
+      if (isClerkAPIResponseError(err)) {
+        setErrors(err.errors);
+      }
+
       console.error('Error:', JSON.stringify(err, null, 2));
     }
   };
