@@ -1,10 +1,12 @@
 'use client';
 
+import { DotLoader } from '@/components/ui/animation/dot-loader';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/forms/input';
 import { Heading } from '@/components/ui/heading';
 import { MyLink } from '@/components/ui/my-link';
-import { useState, useEffect } from 'react';
+import { type ClerkAPIError } from '@clerk/types';
+import { useEffect, useState } from 'react';
 
 const validationRules = {
   email: {
@@ -32,9 +34,11 @@ interface AuthenticationFormProps {
   formTitle: string;
   buttonText: string;
   type: 'login' | 'register';
+  errors?: ClerkAPIError[];
+  isLoading?: boolean;
 }
 
-export const AuthenticationForm = ({ onSubmit, formTitle, buttonText, type }: AuthenticationFormProps) => {
+export const AuthenticationForm = ({ onSubmit, formTitle, buttonText, type, errors, isLoading }: AuthenticationFormProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailErrorMessage, setEmailErrorMessage] = useState<string | null>(null);
@@ -120,8 +124,8 @@ export const AuthenticationForm = ({ onSubmit, formTitle, buttonText, type }: Au
           validationMessage={passwordErrorMessage}
         />
 
-        <Button variant="primary" className="w-full rounded-sm" type="submit" disabled={!isFormValid}>
-          {buttonText}
+        <Button variant="primary" className="w-full rounded-sm" type="submit" disabled={!isFormValid || isLoading}>
+          {isLoading ? <DotLoader color="white" /> : buttonText}
         </Button>
       </div>
 
@@ -133,6 +137,14 @@ export const AuthenticationForm = ({ onSubmit, formTitle, buttonText, type }: Au
         <p className="text-center text-dark-gray">
           Don't have an account? <MyLink href="/sign-up">Register</MyLink>.
         </p>
+      )}
+
+      {errors?.length && (
+        <ul className="text-sm text-red">
+          {errors.map((error, index) => (
+            <li key={index}>{error.longMessage}</li>
+          ))}
+        </ul>
       )}
     </form>
   );
