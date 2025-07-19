@@ -93,6 +93,7 @@ export const SignUpForm = () => {
 
   // Display the verification form to capture the OTP code
   if (verifying) {
+    // place in modal and and style
     return <VerificationForm handleVerify={handleVerify} />;
   }
 

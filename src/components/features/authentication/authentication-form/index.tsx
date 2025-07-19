@@ -109,7 +109,7 @@ export const AuthenticationForm = ({ onSubmit, formTitle, buttonText, type, erro
 
       {type === 'login' && (
         <Modal isOpen={isOpen} closeModal={closeModal}>
-          <ResetPasswordForm />
+          <ResetPasswordForm formTitle="Forgot Password?" />
         </Modal>
       )}
     </>
