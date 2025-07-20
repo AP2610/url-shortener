@@ -2,20 +2,27 @@
 
 import { AuthenticationForm } from '@/components/features/authentication/authentication-form';
 import { VerificationForm } from '@/components/features/authentication/verification-form';
+import { Modal } from '@/components/ui/modal';
+import { useModal } from '@/hooks/use-modal';
 import { useSignUp } from '@clerk/nextjs';
 import { isClerkAPIResponseError } from '@clerk/nextjs/errors';
 import { type ClerkAPIError } from '@clerk/types';
 import { useRouter } from 'next/navigation';
-import { type FormEvent, useState } from 'react';
+import { type FormEvent, useEffect, useState } from 'react';
 
-// TODO: Add loading state when submitting the form
-// TODO: Implement error handling
 export const SignUpForm = () => {
   const { isLoaded, signUp, setActive } = useSignUp();
   const [verifying, setVerifying] = useState(false);
   const [errors, setErrors] = useState<ClerkAPIError[]>();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { isOpen, showModal, closeModal } = useModal();
+
+  useEffect(() => {
+    if (verifying) {
+      showModal();
+    }
+  }, [verifying]);
 
   // Handle submission of the sign-up form
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -64,6 +71,8 @@ export const SignUpForm = () => {
     if (!isLoaded) return;
 
     try {
+      setIsLoading(true);
+
       // Use the code the user provided to attempt verification
       const signUpAttempt = await signUp.attemptEmailAddressVerification({
         code,
@@ -88,14 +97,10 @@ export const SignUpForm = () => {
       }
 
       console.error('Error:', JSON.stringify(err, null, 2));
+    } finally {
+      setIsLoading(false);
     }
   };
-
-  // Display the verification form to capture the OTP code
-  if (verifying) {
-    // place in modal and and style
-    return <VerificationForm handleVerify={handleVerify} />;
-  }
 
   return (
     <>
@@ -107,6 +112,12 @@ export const SignUpForm = () => {
         errors={errors}
         isLoading={isLoading}
       />
+
+      {verifying && (
+        <Modal isOpen={isOpen} closeModal={closeModal} preventCloseOnBackdropClick>
+          <VerificationForm handleVerify={handleVerify} isLoading={isLoading} />
+        </Modal>
+      )}
 
       {/* Clerk captcha for bot protection */}
       <div id="clerk-captcha" />

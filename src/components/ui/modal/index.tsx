@@ -10,9 +10,10 @@ interface ModalProps {
   closeModal: () => void;
   isOpen: boolean;
   isCloseable?: boolean;
+  preventCloseOnBackdropClick?: boolean;
 }
 
-export const Modal = ({ children, closeModal, isOpen, isCloseable = true }: ModalProps) => {
+export const Modal = ({ children, closeModal, isOpen, isCloseable = true, preventCloseOnBackdropClick = false }: ModalProps) => {
   useEffect(() => {
     const handleEscapePress = (event: KeyboardEvent) => {
       if (event.key.toLowerCase() === 'escape') {
@@ -26,7 +27,7 @@ export const Modal = ({ children, closeModal, isOpen, isCloseable = true }: Moda
   }, []);
 
   const handleBackdropClick = (event: React.MouseEvent) => {
-    if (event.target === event.currentTarget && isCloseable) {
+    if (event.target === event.currentTarget && isCloseable && !preventCloseOnBackdropClick) {
       closeModal();
     }
   };
