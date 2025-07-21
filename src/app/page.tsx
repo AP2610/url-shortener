@@ -3,6 +3,7 @@ import { AnimatedElementPresence } from '@/components/ui/animation/animated-elem
 import { EntryAnimation } from '@/components/ui/animation/entry-animation';
 import { Heading } from '@/components/ui/heading';
 import { MyLink } from '@/components/ui/my-link';
+import { SignedOut } from '@clerk/nextjs';
 
 const Home = () => {
   return (
@@ -18,12 +19,13 @@ const Home = () => {
 
       <UrlForm />
 
-      {/* TODO: Guard with auth */}
-      <AnimatedElementPresence shouldWaitToAnimateFor="entry-animation">
-        <p className="mt-8 text-center text-dark-gray">
-          Want to keep track of your shortened links? <MyLink href="/sign-up">Sign up!</MyLink>.
-        </p>
-      </AnimatedElementPresence>
+      <SignedOut>
+        <AnimatedElementPresence shouldWaitToAnimateFor="entry-animation">
+          <p className="mt-8 text-center text-dark-gray">
+            Want to keep track of your shortened links? <MyLink href="/sign-up">Sign up!</MyLink>.
+          </p>
+        </AnimatedElementPresence>
+      </SignedOut>
     </div>
   );
 };

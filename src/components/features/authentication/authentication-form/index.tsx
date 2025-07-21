@@ -1,5 +1,6 @@
 'use client';
 
+import { type AuthenticationType } from '@/components/features/authentication/types';
 import { DotLoader } from '@/components/ui/animation/dot-loader';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/forms/input';
@@ -11,13 +12,14 @@ import { useModal } from '@/hooks/use-modal';
 import { usePasswordValidation } from '@/hooks/use-password-validation';
 import { type ClerkAPIError } from '@clerk/types';
 import { useState } from 'react';
+import { GoogleOAuthButton } from '../google-oauth-button';
 import { ResetPasswordForm } from '../reset-password-form';
 
 interface AuthenticationFormProps {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   formTitle: string;
   buttonText: string;
-  type: 'login' | 'register';
+  type: AuthenticationType;
   errors?: ClerkAPIError[];
   isLoading?: boolean;
 }
@@ -78,7 +80,7 @@ export const AuthenticationForm = ({ onSubmit, formTitle, buttonText, type, erro
           </div>
         </form>
 
-        {type === 'register' ? (
+        {type === 'signup' ? (
           <p className="text-center text-dark-gray">
             Already have an account? <MyLink href="/login">Login</MyLink>.
           </p>
@@ -97,6 +99,11 @@ export const AuthenticationForm = ({ onSubmit, formTitle, buttonText, type, erro
             </p>
           </div>
         )}
+
+        <p className="text-center text-dark-gray">OR</p>
+
+        {/* Sign in with google */}
+        <GoogleOAuthButton type={type} />
 
         {errors?.length && (
           <ul className="text-sm text-red">

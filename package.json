@@ -4,14 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "prisma generate && prisma migrate deploy && next build",
+    "build": "prisma generate --no-engine && prisma migrate deploy && next build",
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky"
   },
   "dependencies": {
+    "@clerk/elements": "^0.23.43",
     "@clerk/nextjs": "^6.23.3",
-    "@prisma/client": "^6.11.1",
+    "@prisma/client": "^6.12.0",
     "@prisma/extension-accelerate": "^2.0.1",
     "@typescript-eslint/eslint-plugin": "^8.35.0",
     "motion": "^12.19.1",
@@ -40,7 +41,7 @@
     "lint-staged": "^16.1.2",
     "prettier": "^3.6.0",
     "prettier-plugin-tailwindcss": "^0.6.13",
-    "prisma": "^6.11.1",
+    "prisma": "^6.12.0",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4",
     "tsx": "^4.20.3",
