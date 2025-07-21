@@ -108,7 +108,7 @@ export const SignUpForm = () => {
         buttonText="Sign Up"
         formTitle="Sign Up"
         onSubmit={handleSubmit}
-        type="register"
+        type="signup"
         errors={errors}
         isLoading={isLoading}
       />
