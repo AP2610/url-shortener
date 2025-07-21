@@ -38,6 +38,8 @@ export const CodeInput = ({ length, hiddenInputName, ...props }: CodeInputProps)
     const clipboardData = event.clipboardData.getData('text');
     const pastedValues = clipboardData.split('');
     setValues(pastedValues);
+
+    inputRefs.current.at(-1)?.focus();
   };
 
   return (
