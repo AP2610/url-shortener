@@ -1,5 +1,6 @@
 'use client';
 
+import { UserMenu } from '@/components/features/authentication/user-menu';
 import { AnimatedElementPresence } from '@/components/ui/animation/animated-element-presence';
 import { HeaderLogo } from '@/components/ui/logo/header-logo';
 import { MyLink } from '@/components/ui/my-link';
@@ -45,6 +46,10 @@ export const Header = () => {
           <UserButton />
 
           {/* TODO: Add logout button */}
+        </SignedIn>
+
+        <SignedIn>
+          <UserMenu />
         </SignedIn>
       </AnimatedElementPresence>
     </header>

@@ -27,6 +27,7 @@ export const Modal = ({ children, closeModal, isOpen, isCloseable = true, preven
   }, []);
 
   const handleBackdropClick = (event: React.MouseEvent) => {
+    // target is the clicked element, currentTarget is what the listener is attached to
     if (event.target === event.currentTarget && isCloseable && !preventCloseOnBackdropClick) {
       closeModal();
     }

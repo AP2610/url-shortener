@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils/cn';
-import { ButtonHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes, RefObject } from 'react';
 import { buttonStyles } from './button-styles';
 import { ButtonVariants } from './types';
 
@@ -13,6 +13,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isRounded?: boolean;
   scrollTo?: string;
   disabled?: boolean;
+  ref?: RefObject<HTMLButtonElement | null>;
 }
 
 export const Button = ({ children, className, onClick, variant = 'primary', isRounded = true, ...props }: ButtonProps) => {
