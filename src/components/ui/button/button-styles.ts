@@ -5,6 +5,7 @@ export const buttonStyles = {
     secondary: 'btn-secondary',
     tertiary: 'btn-tertiary',
     inline: 'btn-inline',
+    danger: 'btn-danger',
   },
   nonIconButtonStyles: 'btn-base',
 };
