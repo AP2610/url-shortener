@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { FaUser } from 'react-icons/fa';
+import { PiSignOutFill } from 'react-icons/pi';
 
 export const UserMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -60,7 +61,8 @@ export const UserMenu = () => {
             exit={{ opacity: 0, y: -10, x: 10, scale: 0.9 }}
             transition={{ duration: 0.2 }}
           >
-            <Button variant="secondary" className="w-full">
+            <Button variant="secondary" className="flex w-full items-center">
+              <PiSignOutFill className="pointer-events-none mr-2 h-5 w-5" />
               Logout
             </Button>
 
