@@ -48,7 +48,7 @@ export const Modal = ({ children, closeModal, isOpen, isCloseable = true, preven
             initial={{ opacity: 0, y: 50, scale: 0.8 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -50, scale: 0.8 }}
-            className="max-h-[90dvh] max-w-[90vw] overflow-scroll rounded-md bg-blue-black p-1 shadow-md md:max-w-3xl"
+            className="max-h-[90dvh] w-fit max-w-[90vw] overflow-scroll rounded-md bg-blue-black p-1 shadow-md md:max-w-3xl"
           >
             {isCloseable && (
               <header className="relative">
