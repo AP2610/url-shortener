@@ -52,8 +52,6 @@ export const UserMenu = () => {
 
     const formData = new FormData(event.currentTarget);
     const confirmation = formData.get('delete-confirmation');
-    console.log('confirmation', confirmation);
-    console.log('deleting');
 
     if (confirmation === 'DELETE') {
       try {
