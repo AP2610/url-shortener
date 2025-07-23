@@ -7,7 +7,7 @@ import { type ClerkAPIError } from '@clerk/types';
 import { useRouter } from 'next/navigation';
 import { useState, type FormEvent } from 'react';
 
-export const LoginForm = () => {
+export const SignInForm = () => {
   const { isLoaded, signIn, setActive } = useSignIn();
   const [errors, setErrors] = useState<ClerkAPIError[]>();
   const [isLoading, setIsLoading] = useState(false);
@@ -61,10 +61,10 @@ export const LoginForm = () => {
 
   return (
     <AuthenticationForm
-      formTitle="Login"
-      buttonText="Login"
+      formTitle="Sign in"
+      buttonText="Sign in"
       onSubmit={handleSubmit}
-      type="login"
+      type="signin"
       errors={errors}
       isLoading={isLoading}
     />

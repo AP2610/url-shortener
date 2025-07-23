@@ -1,1 +1,1 @@
-export type AuthenticationType = 'login' | 'signup';
+export type AuthenticationType = 'signin' | 'signup';

@@ -103,12 +103,12 @@ export const AuthenticationForm = ({ onSubmit, formTitle, buttonText, type, erro
 
           {type === 'signup' ? (
             <p className="text-center text-dark-gray">
-              Already have an account? <MyLink href="/sign-in">Login</MyLink>.
+              Already have an account? <MyLink href="/sign-in">Sign in</MyLink>.
             </p>
           ) : (
             <div className="space-y-2">
               <p className="text-center text-dark-gray">
-                Don't have an account? <MyLink href="/sign-up">Register</MyLink>.
+                Don't have an account? <MyLink href="/sign-up">Sign up</MyLink>.
               </p>
 
               <p className="text-center text-dark-gray">
@@ -126,13 +126,13 @@ export const AuthenticationForm = ({ onSubmit, formTitle, buttonText, type, erro
           {/* Sign in/up with google */}
           <OAuthButton type={type} oAuthStrategy="oauth_google">
             <SiGoogle className="mr-4" />
-            {type === 'login' ? 'Login' : 'Sign up'} with Google
+            {type === 'signin' ? 'Sign in' : 'Sign up'} with Google
           </OAuthButton>
 
           {errors?.length && <ErrorList<ClerkAPIError> errors={errors} />}
         </div>
 
-        {type === 'login' && (
+        {type === 'signin' && (
           <Modal isOpen={isOpen} closeModal={closeModal}>
             <ResetPasswordForm formTitle="Forgot Password?" />
           </Modal>

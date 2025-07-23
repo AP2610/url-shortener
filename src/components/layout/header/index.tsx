@@ -14,11 +14,11 @@ import { CiLogin } from 'react-icons/ci';
 export const Header = () => {
   const pathname = usePathname();
 
-  const isLoginPages = pathname === '/sign-in';
-  const isRegisterPages = pathname === '/sign-up';
+  const isSignInPages = pathname === '/sign-in';
+  const isSignUpPages = pathname === '/sign-up';
   const isSSOCallback = pathname === '/sso-callback';
 
-  if (isLoginPages || isRegisterPages || isSSOCallback) {
+  if (isSignInPages || isSignUpPages || isSSOCallback) {
     return null;
   }
 
@@ -34,12 +34,12 @@ export const Header = () => {
       >
         <SignedOut>
           <MyLink href="/sign-in" variant="secondary" className="flex items-center gap-2 rounded-full">
-            Login
+            Sign in
             <CiLogin className="h-6 w-6" />
           </MyLink>
 
           <MyLink href="/sign-up" variant="primary" className="hidden rounded-full md:flex">
-            Register Now
+            Sign up
           </MyLink>
         </SignedOut>
 
