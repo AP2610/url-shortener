@@ -49,21 +49,11 @@ export const ResetPasswordForm = ({ formTitle }: ResetPasswordFormProps) => {
     event.preventDefault();
 
     try {
-      // Step 1: Create the sign-in with reset password strategy
-      console.log('Running create');
-      const signInResult = await signIn?.create({
+      // Create the sign-in with reset password strategy
+      await signIn?.create({
         strategy: 'reset_password_email_code',
         identifier: email,
       });
-      console.log('signInResult', signInResult);
-
-      const emailAddressId = signInResult?.supportedFirstFactors?.find(
-        (factor) => factor.strategy === 'reset_password_email_code',
-      )?.emailAddressId;
-
-      console.log('emailAddressId', emailAddressId);
-
-      // Step 2: Prepare the first factor to actually send the email
 
       setSuccessfulCreation(true);
       setError('');
@@ -108,7 +98,7 @@ export const ResetPasswordForm = ({ formTitle }: ResetPasswordFormProps) => {
   const isPasswordValid = !passwordErrorMessage;
 
   return (
-    <form className="w-full space-y-8 p-8 md:w-90" onSubmit={!successfulCreation ? createPasswordResetCode : resetPassword}>
+    <form className="w-full space-y-8 md:w-90" onSubmit={!successfulCreation ? createPasswordResetCode : resetPassword}>
       <Heading level="h2">{formTitle}</Heading>
 
       {!successfulCreation && (

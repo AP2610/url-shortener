@@ -120,10 +120,6 @@ export const UserMenu = () => {
                 Logout
               </Button>
 
-              <Button variant="tertiary" className="w-full">
-                Change Password
-              </Button>
-
               <Button variant="danger" onClick={handleDeleteAccountClick} className="w-full">
                 Delete Account
               </Button>
