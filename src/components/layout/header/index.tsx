@@ -14,10 +14,13 @@ import { CiLogin } from 'react-icons/ci';
 export const Header = () => {
   const pathname = usePathname();
 
-  const isLoginPage = pathname === '/sign-in';
-  const isRegisterPage = pathname === '/sign-up';
+  const isLoginPages = pathname === '/sign-in';
+  const isRegisterPages = pathname === '/sign-up';
+  const isSSOCallback = pathname === '/sso-callback';
 
-  if (isLoginPage || isRegisterPage) return null;
+  if (isLoginPages || isRegisterPages || isSSOCallback) {
+    return null;
+  }
 
   return (
     <header className="fixed top-0 right-0 left-0 z-50 container mx-auto flex h-[var(--header-height)] items-center justify-between bg-background p-4">

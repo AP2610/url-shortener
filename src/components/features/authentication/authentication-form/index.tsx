@@ -11,11 +11,13 @@ import { useEmailValidation } from '@/hooks/use-email-validation';
 import { useModal } from '@/hooks/use-modal';
 import { usePasswordValidation } from '@/hooks/use-password-validation';
 import { type ClerkAPIError } from '@clerk/types';
-import { useState } from 'react';
-import { GoogleOAuthButton } from '../google-oauth-button';
+import { useEffect, useState } from 'react';
 import { ResetPasswordForm } from '../reset-password-form';
 import { ClerkLoaded, ClerkLoading } from '@clerk/nextjs';
 import FullScreenDotLoader from '@/components/ui/loaders/full-screen-dot-loader';
+import { SiGoogle } from 'react-icons/si';
+import { OAuthButton } from '@/components/features/authentication/oauth-button';
+import { ErrorList } from '@/components/ui/errors/error-list';
 
 interface AuthenticationFormProps {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
@@ -29,9 +31,15 @@ interface AuthenticationFormProps {
 export const AuthenticationForm = ({ onSubmit, formTitle, buttonText, type, errors, isLoading }: AuthenticationFormProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isMounted, setIsMounted] = useState(false);
   const { emailErrorMessage, hasEmail, handleEmailBlur, setEmailErrorMessage } = useEmailValidation(email);
   const { passwordErrorMessage } = usePasswordValidation(password);
   const { isOpen, showModal: showResetPasswordModal, closeModal } = useModal();
+
+  // Prevent hydration mismatch
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const isFormValid = hasEmail && !emailErrorMessage && !passwordErrorMessage;
 
@@ -42,6 +50,10 @@ export const AuthenticationForm = ({ onSubmit, formTitle, buttonText, type, erro
       onSubmit(event);
     }
   };
+
+  if (!isMounted) {
+    return <FullScreenDotLoader />;
+  }
 
   return (
     <>
@@ -81,6 +93,8 @@ export const AuthenticationForm = ({ onSubmit, formTitle, buttonText, type, erro
                 validationMessage={passwordErrorMessage}
               />
 
+              <div id="clerk-captcha" />
+
               <Button variant="primary" className="w-full rounded-sm" type="submit" disabled={!isFormValid || isLoading}>
                 {isLoading ? <DotLoader color="white" /> : buttonText}
               </Button>
@@ -109,16 +123,13 @@ export const AuthenticationForm = ({ onSubmit, formTitle, buttonText, type, erro
 
           <p className="text-center text-dark-gray">OR</p>
 
-          {/* Sign in with google */}
-          <GoogleOAuthButton type={type} />
+          {/* Sign in/up with google */}
+          <OAuthButton type={type} oAuthStrategy="oauth_google">
+            <SiGoogle className="mr-4" />
+            {type === 'login' ? 'Login' : 'Sign up'} with Google
+          </OAuthButton>
 
-          {errors?.length && (
-            <ul className="text-sm text-red">
-              {errors.map((error, index) => (
-                <li key={index}>{error.longMessage}</li>
-              ))}
-            </ul>
-          )}
+          {errors?.length && <ErrorList<ClerkAPIError> errors={errors} />}
         </div>
 
         {type === 'login' && (
