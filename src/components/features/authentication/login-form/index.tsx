@@ -60,13 +60,18 @@ export const LoginForm = () => {
   };
 
   return (
-    <AuthenticationForm
-      formTitle="Login"
-      buttonText="Login"
-      onSubmit={handleSubmit}
-      type="login"
-      errors={errors}
-      isLoading={isLoading}
-    />
+    <>
+      <AuthenticationForm
+        formTitle="Login"
+        buttonText="Login"
+        onSubmit={handleSubmit}
+        type="login"
+        errors={errors}
+        isLoading={isLoading}
+      />
+
+      {/* Clerk captcha for bot protection, in case the user does not have an account and uses oauth, it will create an account so the captcha will be triggered */}
+      <div id="clerk-captcha" />
+    </>
   );
 };
