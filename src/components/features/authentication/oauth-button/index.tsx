@@ -28,11 +28,11 @@ export const OAuthButton = ({ type, oAuthStrategy, children, buttonVariant = 'se
 
   const continueWithOAuth = async (strategy: OAuthStrategy) => {
     setErrors(undefined);
-    const redirectUrl = '/sso-callback';
+    const redirectUrl = type === 'signin' ? '/sign-in/sso-callback' : '/sign-up/sso-callback';
     const redirectUrlComplete = '/';
 
     try {
-      if (type === 'login') {
+      if (type === 'signin') {
         await signIn?.authenticateWithRedirect({
           strategy,
           redirectUrl,
