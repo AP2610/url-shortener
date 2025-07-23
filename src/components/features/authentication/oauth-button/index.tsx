@@ -9,6 +9,7 @@ import { isClerkAPIResponseError } from '@clerk/nextjs/errors';
 import { useState } from 'react';
 import { ErrorList } from '@/components/ui/errors/error-list';
 import { AuthenticationType } from '@/components/features/authentication/types';
+import { DotLoader } from '@/components/ui/animation/dot-loader';
 
 interface OAuthSignInButtonProps {
   type: AuthenticationType;
@@ -19,6 +20,7 @@ interface OAuthSignInButtonProps {
 
 export const OAuthButton = ({ type, oAuthStrategy, children, buttonVariant = 'secondary' }: OAuthSignInButtonProps) => {
   const [errors, setErrors] = useState<ClerkAPIError[]>();
+  const [isLoading, setIsLoading] = useState(false);
   const { signIn } = useSignIn();
   const { signUp } = useSignUp();
 
@@ -32,6 +34,8 @@ export const OAuthButton = ({ type, oAuthStrategy, children, buttonVariant = 'se
     const redirectUrlComplete = '/';
 
     try {
+      setIsLoading(true);
+
       if (type === 'signin') {
         await signIn?.authenticateWithRedirect({
           strategy,
@@ -56,8 +60,8 @@ export const OAuthButton = ({ type, oAuthStrategy, children, buttonVariant = 'se
 
   return (
     <>
-      <Button variant={buttonVariant} onClick={() => continueWithOAuth(oAuthStrategy)} className="w-full">
-        {children}
+      <Button variant={buttonVariant} onClick={() => continueWithOAuth(oAuthStrategy)} className="w-full" disabled={isLoading}>
+        {isLoading ? <DotLoader color="white" /> : children}
       </Button>
 
       {errors?.length && <ErrorList<ClerkAPIError> errors={errors} />}
