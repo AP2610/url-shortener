@@ -14,6 +14,8 @@ import { type ClerkAPIError } from '@clerk/types';
 import { useState } from 'react';
 import { GoogleOAuthButton } from '../google-oauth-button';
 import { ResetPasswordForm } from '../reset-password-form';
+import { ClerkLoaded, ClerkLoading } from '@clerk/nextjs';
+import FullScreenDotLoader from '@/components/ui/loaders/full-screen-dot-loader';
 
 interface AuthenticationFormProps {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
@@ -43,82 +45,88 @@ export const AuthenticationForm = ({ onSubmit, formTitle, buttonText, type, erro
 
   return (
     <>
-      <div className="w-full space-y-8 rounded-sm bg-blue-black/70 p-8 shadow-md md:w-90">
-        <form className="w-full space-y-8" onSubmit={handleSubmit}>
-          <Heading level="h2">{formTitle}</Heading>
+      <ClerkLoading>
+        <FullScreenDotLoader />
+      </ClerkLoading>
 
-          <div className="w-full space-y-4">
-            <Input
-              id="email"
-              label="Enter your email"
-              autoFocus
-              required
-              type="email"
-              name="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              onBlur={handleEmailBlur}
-              onFocus={() => setEmailErrorMessage(null)}
-              validationMessage={emailErrorMessage}
-            />
+      <ClerkLoaded>
+        <div className="w-full space-y-8 rounded-sm bg-blue-black/70 p-8 shadow-md md:w-90">
+          <form className="w-full space-y-8" onSubmit={handleSubmit}>
+            <Heading level="h2">{formTitle}</Heading>
 
-            <Input
-              id="password"
-              label="Enter your password"
-              required
-              type="password"
-              name="password"
-              minLength={8}
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              validationMessage={passwordErrorMessage}
-            />
+            <div className="w-full space-y-4">
+              <Input
+                id="email"
+                label="Enter your email"
+                autoFocus
+                required
+                type="email"
+                name="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                onBlur={handleEmailBlur}
+                onFocus={() => setEmailErrorMessage(null)}
+                validationMessage={emailErrorMessage}
+              />
 
-            <Button variant="primary" className="w-full rounded-sm" type="submit" disabled={!isFormValid || isLoading}>
-              {isLoading ? <DotLoader color="white" /> : buttonText}
-            </Button>
-          </div>
-        </form>
+              <Input
+                id="password"
+                label="Enter your password"
+                required
+                type="password"
+                name="password"
+                minLength={8}
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                validationMessage={passwordErrorMessage}
+              />
 
-        {type === 'signup' ? (
-          <p className="text-center text-dark-gray">
-            Already have an account? <MyLink href="/login">Login</MyLink>.
-          </p>
-        ) : (
-          <div className="space-y-2">
-            <p className="text-center text-dark-gray">
-              Don't have an account? <MyLink href="/sign-up">Register</MyLink>.
-            </p>
-
-            <p className="text-center text-dark-gray">
-              Forgot Password?{' '}
-              <Button variant="inline" className="p-0 text-base" onClick={showResetPasswordModal}>
-                Reset
+              <Button variant="primary" className="w-full rounded-sm" type="submit" disabled={!isFormValid || isLoading}>
+                {isLoading ? <DotLoader color="white" /> : buttonText}
               </Button>
-              .
+            </div>
+          </form>
+
+          {type === 'signup' ? (
+            <p className="text-center text-dark-gray">
+              Already have an account? <MyLink href="/sign-in">Login</MyLink>.
             </p>
-          </div>
+          ) : (
+            <div className="space-y-2">
+              <p className="text-center text-dark-gray">
+                Don't have an account? <MyLink href="/sign-up">Register</MyLink>.
+              </p>
+
+              <p className="text-center text-dark-gray">
+                Forgot Password?{' '}
+                <Button variant="inline" className="p-0 text-base" onClick={showResetPasswordModal}>
+                  Reset
+                </Button>
+                .
+              </p>
+            </div>
+          )}
+
+          <p className="text-center text-dark-gray">OR</p>
+
+          {/* Sign in with google */}
+          <GoogleOAuthButton type={type} />
+
+          {errors?.length && (
+            <ul className="text-sm text-red">
+              {errors.map((error, index) => (
+                <li key={index}>{error.longMessage}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        {type === 'login' && (
+          <Modal isOpen={isOpen} closeModal={closeModal}>
+            <ResetPasswordForm formTitle="Forgot Password?" />
+          </Modal>
         )}
-
-        <p className="text-center text-dark-gray">OR</p>
-
-        {/* Sign in with google */}
-        <GoogleOAuthButton type={type} />
-
-        {errors?.length && (
-          <ul className="text-sm text-red">
-            {errors.map((error, index) => (
-              <li key={index}>{error.longMessage}</li>
-            ))}
-          </ul>
-        )}
-      </div>
-
-      {type === 'login' && (
-        <Modal isOpen={isOpen} closeModal={closeModal}>
-          <ResetPasswordForm formTitle="Forgot Password?" />
-        </Modal>
-      )}
+      </ClerkLoaded>
     </>
   );
 };

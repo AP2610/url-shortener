@@ -5,7 +5,7 @@ import { isValidShortcode } from './lib/utils/shortcode-utils';
 // Public routes
 const isPublicRoute = createRouteMatcher([
   '/',
-  '/login(.*)',
+  '/sign-in(.*)',
   '/sign-up(.*)',
   '/api/webhooks(.*)', // Webhook endpoints
   '/api/redirect(.*)', // Redirect API route
