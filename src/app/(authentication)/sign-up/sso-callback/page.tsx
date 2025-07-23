@@ -1,6 +1,6 @@
 import { SSOCallbackPage } from '@/components/features/authentication/sso-callback-page';
 
-export const SSOCallbackSignUp = () => {
+const SSOCallbackSignUp = () => {
   return <SSOCallbackPage />;
 };
 
