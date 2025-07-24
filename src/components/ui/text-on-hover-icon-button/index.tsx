@@ -18,7 +18,7 @@ export const TextOnHoverIconButton = ({ icon, buttonLabel, className, onClick }:
 
   return (
     <motion.button
-      className={cn('btn-base w-auto min-w-[64px] rounded-md', className)}
+      className={cn('btn-base w-auto rounded-md', className)}
       onClick={onClick}
       whileHover={{ width: '100%' }}
       transition={{ duration: 0.2 }}
