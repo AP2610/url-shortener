@@ -3,6 +3,7 @@ import { AnimatedElementPresence } from '@/components/ui/animation/animated-elem
 import { EntryAnimation } from '@/components/ui/animation/entry-animation';
 import { Heading } from '@/components/ui/heading';
 import { MyLink } from '@/components/ui/my-link';
+import { TextWithUnderline } from '@/components/ui/text-with-underline';
 import { SignedOut } from '@clerk/nextjs';
 
 const Home = () => {
@@ -11,7 +12,9 @@ const Home = () => {
       <EntryAnimation />
       <AnimatedElementPresence shouldWaitToAnimateFor="entry-animation">
         <div className="mb-8 flex flex-col items-center justify-center space-y-8 text-center md:mb-16">
-          <Heading level="h1">Got a long URL? Shortly it!</Heading>
+          <Heading level="h1">
+            Got a long URL? <TextWithUnderline text="Shortly" className="text-primary" svgClassName="text-foreground" /> it!
+          </Heading>
 
           <p className="text-dark-gray">Shorten your links with our URL shortening service. It's free and easy to use.</p>
         </div>
