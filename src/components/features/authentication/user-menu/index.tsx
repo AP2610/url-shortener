@@ -7,7 +7,7 @@ import { Heading } from '@/components/ui/heading';
 import { Modal } from '@/components/ui/modal';
 import { useModal } from '@/hooks/use-modal';
 import { deleteUser } from '@/server-functions/auth/delete-user';
-import { useClerk } from '@clerk/nextjs';
+import { useClerk, useUser } from '@clerk/nextjs';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { FaUser } from 'react-icons/fa';
@@ -18,6 +18,8 @@ export const UserMenu = () => {
   const [menuPosition, setMenuPosition] = useState<{ top: number; right: number } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const { user } = useUser();
 
   const { signOut } = useClerk();
   const { isOpen: isDeleteAccountModalOpen, showModal: showDeleteAccountModal, closeModal: closeDeleteAccountModal } = useModal();
@@ -108,13 +110,15 @@ export const UserMenu = () => {
           {isOpen && menuPosition && (
             <motion.div
               ref={menuRef}
-              className="absolute top-[calc(100%+10px)] z-[9999] min-w-[200px] space-y-4 rounded-md bg-blue-black p-6"
+              className="absolute top-[calc(100%+10px)] z-[9999] w-[200px] space-y-4 overflow-hidden rounded-md bg-blue-black p-6"
               style={{ right: menuPosition.right }}
               initial={{ opacity: 0, y: -10, x: 10, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, x: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, x: 10, scale: 0.9 }}
               transition={{ duration: 0.2 }}
             >
+              <p>{user?.primaryEmailAddress?.emailAddress}</p>
+
               <Button variant="secondary" className="flex w-full items-center" onClick={() => signOut({ redirectUrl: '/' })}>
                 <PiSignOutFill className="pointer-events-none mr-2 h-5 w-5" />
                 Logout
