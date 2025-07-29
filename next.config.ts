@@ -1,6 +1,11 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  experimental: {
+    serverActions: {
+      allowedOrigins: ['localhost:3000', 'kgtxkn4x-3000.euw.devtunnels.ms', '*.devtunnels.ms'],
+    },
+  },
   async headers() {
     return [
       {
