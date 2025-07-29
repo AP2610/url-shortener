@@ -110,7 +110,7 @@ export const UserMenu = () => {
           {isOpen && menuPosition && (
             <motion.div
               ref={menuRef}
-              className="absolute top-[calc(100%+10px)] z-[9999] w-[200px] space-y-4 overflow-hidden rounded-md bg-blue-black p-6"
+              className="absolute top-[calc(100%+10px)] z-[9999] w-fit min-w-[200px] space-y-4 rounded-md bg-blue-black p-6"
               style={{ right: menuPosition.right }}
               initial={{ opacity: 0, y: -10, x: 10, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, x: 0, scale: 1 }}

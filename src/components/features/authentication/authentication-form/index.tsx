@@ -93,8 +93,6 @@ export const AuthenticationForm = ({ onSubmit, formTitle, buttonText, type, erro
                 validationMessage={passwordErrorMessage}
               />
 
-              <div id="clerk-captcha" />
-
               <Button variant="primary" className="w-full rounded-sm" type="submit" disabled={!isFormValid || isLoading}>
                 {isLoading ? <DotLoader color="white" /> : buttonText}
               </Button>
@@ -138,6 +136,9 @@ export const AuthenticationForm = ({ onSubmit, formTitle, buttonText, type, erro
           </Modal>
         )}
       </ClerkLoaded>
+
+      {/* Clerk captcha for bot protection */}
+      <div id="clerk-captcha" />
     </>
   );
 };

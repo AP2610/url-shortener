@@ -24,8 +24,6 @@ export const metadata: Metadata = {
   description: 'Shortly is a URL shortening service',
 };
 
-// TODO: Add cookie banner
-
 export default function RootLayout({
   children,
 }: Readonly<{

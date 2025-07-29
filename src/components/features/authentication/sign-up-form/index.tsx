@@ -118,9 +118,6 @@ export const SignUpForm = () => {
           <VerificationForm handleVerify={handleVerify} isLoading={isLoading} />
         </Modal>
       )}
-
-      {/* Clerk captcha for bot protection */}
-      <div id="clerk-captcha" />
     </>
   );
 };

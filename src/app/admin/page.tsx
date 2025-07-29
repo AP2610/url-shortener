@@ -1,16 +1,19 @@
 import { Heading } from '@/components/ui/heading';
 import prisma from '@/lib/db/prisma';
 import { URLRecordTable } from '@/components/features/url-record-table';
-
-// TODO add revalidate
-
-export const dynamic = 'force-dynamic';
+import { isAdmin } from '@/server-functions/db/is-admin';
+import { NoAccessModal } from '@/components/features/admin/no-access-modal';
 
 // TODO: consider using unstable_cache for db operations
 
+// Route is revalidated when a new url is created.
 const AdminPage = async () => {
-  // TODO: Add guard for admin authentication
   // TODO: Fetch additional records on scroll
+  const hasAdminAccess = await isAdmin();
+
+  if (!hasAdminAccess) {
+    return <NoAccessModal hasAccess={hasAdminAccess} redirectTo="/" redirectToLabel="home page" />;
+  }
 
   const allUrlRecords = await prisma.uRL.findMany({
     orderBy: {

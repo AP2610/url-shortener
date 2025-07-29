@@ -3,6 +3,7 @@
 import prisma from '@/lib/db/prisma';
 import { UrlGenerationResult } from '@/lib/types/db';
 import { generateShortCode } from '@/lib/utils/url-utils';
+import { revalidatePath } from 'next/cache';
 
 const BASE_URL = process.env.BASE_URL;
 
@@ -26,6 +27,9 @@ export const generateShortUrl = async ({
         expiresAt: expiryDate || defaultExpiry,
       },
     });
+
+    // Revalidate the admin page so the new url shows up on the next load.
+    revalidatePath('/admin');
 
     return {
       hasError: false,
