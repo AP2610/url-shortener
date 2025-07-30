@@ -5,6 +5,7 @@ import { AnimatedElementPresence } from '@/components/ui/animation/animated-elem
 import { HeaderLogo } from '@/components/ui/logo/header-logo';
 import { MyLink } from '@/components/ui/my-link';
 import { SignedIn, SignedOut } from '@clerk/nextjs';
+import { motion } from 'motion/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { CiLogin } from 'react-icons/ci';
@@ -22,9 +23,11 @@ export const Header = () => {
 
   return (
     <header className="fixed top-0 right-0 left-0 z-50 container mx-auto flex h-[var(--header-height)] items-center justify-between bg-background p-4">
-      <Link href="/">
-        <HeaderLogo layoutId="logo" />
-      </Link>
+      <motion.div layoutId="logo">
+        <Link href="/">
+          <HeaderLogo />
+        </Link>
+      </motion.div>
 
       <AnimatedElementPresence
         shouldWaitToAnimateFor="entry-animation"

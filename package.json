@@ -19,7 +19,7 @@
     "@typescript-eslint/eslint-plugin": "^8.35.0",
     "motion": "^12.19.1",
     "nanoid": "^5.1.5",
-    "next": "^15.4.2-canary.19",
+    "next": "^15.4.5",
     "rate-limiter-flexible": "^7.1.1",
     "react": "^19.0.0",
     "react-datepicker": "^8.4.0",

@@ -60,7 +60,7 @@ export const EntryAnimationLogo = ({ layoutId, className, ...props }: EntryAnima
       variants={logoContainerVariants}
       initial="hidden"
       animate="visible"
-      className={cn('text-9xl font-bold text-primary', className)}
+      className={cn('text-4xl font-bold text-primary md:text-9xl', className)}
       onAnimationComplete={() => setAnimationCompletionStatus('entry-animation-logo')}
       layoutId={layoutId}
       viewport={{ once: true }}

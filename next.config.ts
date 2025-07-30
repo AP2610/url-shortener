@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
     serverActions: {
       allowedOrigins: ['localhost:3000', 'kgtxkn4x-3000.euw.devtunnels.ms', '*.devtunnels.ms'],
     },
-    useCache: true,
   },
   async headers() {
     return [
