@@ -9,8 +9,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { CiLogin } from 'react-icons/ci';
 
-// TODO: Add a button to the admin panel if the user is an admin.
-// TODO: Add a button to see your shortlinks.
 export const Header = () => {
   const pathname = usePathname();
 

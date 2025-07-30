@@ -1,5 +1,5 @@
 import { URLRecordTable } from '@/components/features/url-record-table';
-import { ErrorModal } from '@/components/ui/error-modal';
+import { ErrorModal } from '@/components/ui/errors/error-modal';
 import { Heading } from '@/components/ui/heading';
 import { getUserUrls } from '@/server-functions/db/get-user-urls';
 
