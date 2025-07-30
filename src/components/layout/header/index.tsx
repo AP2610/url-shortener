@@ -44,6 +44,10 @@ export const Header = () => {
         </SignedOut>
 
         <SignedIn>
+          <MyLink href="/my-urls" variant="inline">
+            My URLs
+          </MyLink>
+
           <UserMenu />
         </SignedIn>
       </AnimatedElementPresence>

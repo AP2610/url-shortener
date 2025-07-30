@@ -1,12 +1,9 @@
+import { NoAccessModal } from '@/components/features/admin/no-access-modal';
+import { URLRecordTable } from '@/components/features/url-record-table';
 import { Heading } from '@/components/ui/heading';
 import prisma from '@/lib/db/prisma';
-import { URLRecordTable } from '@/components/features/url-record-table';
 import { isAdmin } from '@/server-functions/db/is-admin';
-import { NoAccessModal } from '@/components/features/admin/no-access-modal';
 
-// TODO: consider using unstable_cache for db operations
-
-// Route is revalidated when a new url is created.
 const AdminPage = async () => {
   // TODO: Fetch additional records on scroll
   const hasAdminAccess = await isAdmin();

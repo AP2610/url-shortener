@@ -24,6 +24,7 @@ export const metadata: Metadata = {
   description: 'Shortly is a URL shortening service',
 };
 
+// TODO: Performance: Add caching for DB calls.
 export default function RootLayout({
   children,
 }: Readonly<{

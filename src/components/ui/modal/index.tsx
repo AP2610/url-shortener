@@ -4,8 +4,9 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect } from 'react';
 import { IoCloseOutline } from 'react-icons/io5';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils/cn';
 
-interface ModalProps {
+export interface ModalProps {
   children: React.ReactNode;
   closeModal: () => void;
   isOpen: boolean;
@@ -48,13 +49,13 @@ export const Modal = ({ children, closeModal, isOpen, isCloseable = true, preven
             initial={{ opacity: 0, y: 50, scale: 0.8 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -50, scale: 0.8 }}
-            className="max-h-[90dvh] w-fit max-w-[90vw] overflow-scroll rounded-md bg-blue-black p-1 shadow-md md:max-w-3xl"
+            className="max-h-[90dvh] w-fit max-w-[90vw] overflow-scroll rounded-md bg-blue-black shadow-md md:max-w-3xl"
           >
             {isCloseable && (
-              <header className="relative">
+              <header className="flex justify-end">
                 <Button
                   variant="icon-button"
-                  className="absolute top-0 right-0 text-primary transition-all duration-300 hover:text-primary/60 focus:outline-none focus-visible:outline-1 focus-visible:outline-primary"
+                  className="text-primary transition-all duration-300 hover:text-primary/60 focus:outline-none focus-visible:outline-1 focus-visible:outline-primary"
                   onClick={closeModal}
                 >
                   <IoCloseOutline className="h-6 w-6" />
@@ -62,7 +63,7 @@ export const Modal = ({ children, closeModal, isOpen, isCloseable = true, preven
               </header>
             )}
 
-            <main className="p-6">{children}</main>
+            <main className={cn('px-8 pb-8', !isCloseable && 'pt-8')}>{children}</main>
           </motion.article>
         </motion.section>
       )}
