@@ -15,7 +15,7 @@ export const Header = () => {
 
   const isSignInPages = pathname === '/sign-in';
   const isSignUpPages = pathname === '/sign-up';
-  const isSSOCallback = pathname === '/sso-callback';
+  const isSSOCallback = pathname.includes('/sso-callback');
 
   if (isSignInPages || isSignUpPages || isSSOCallback) {
     return null;
