@@ -2,6 +2,8 @@
 
 import { UserMenu } from '@/components/features/authentication/user-menu';
 import { AnimatedElementPresence } from '@/components/ui/animation/animated-element-presence';
+import { HomeLinkIcon } from '@/components/ui/home-link-icon';
+import { HoverTapWrapper } from '@/components/ui/hover-tap-wrapper';
 import { HeaderLogo } from '@/components/ui/logo/header-logo';
 import { MyLink } from '@/components/ui/my-link';
 import { SignedIn, SignedOut } from '@clerk/nextjs';
@@ -29,28 +31,35 @@ export const Header = () => {
         </Link>
       </motion.div>
 
-      <AnimatedElementPresence
-        shouldWaitToAnimateFor="entry-animation"
-        className="block text-sm md:flex md:items-center md:gap-4"
-      >
+      <AnimatedElementPresence shouldWaitToAnimateFor="entry-animation" className="flex items-center gap-4 text-sm">
         <SignedOut>
-          <MyLink href="/sign-in" variant="secondary" className="flex items-center gap-2 rounded-full">
-            Sign in
-            <CiLogin className="h-6 w-6" />
-          </MyLink>
+          <motion.div whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
+            <MyLink href="/sign-in" variant="secondary" className="flex items-center gap-2 rounded-full">
+              Sign in
+              <CiLogin className="h-6 w-6" />
+            </MyLink>
+          </motion.div>
 
-          <MyLink href="/sign-up" variant="primary" className="hidden rounded-full md:flex">
-            Sign up
-          </MyLink>
+          <motion.div whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
+            <MyLink href="/sign-up" variant="primary" className="hidden rounded-full md:flex">
+              Sign up
+            </MyLink>
+          </motion.div>
         </SignedOut>
 
         <SignedIn>
-          <MyLink href="/my-urls" variant="inline">
+          <MyLink href="/my-urls" variant="inline" className="mr-4">
             My URLs
           </MyLink>
 
           <UserMenu />
         </SignedIn>
+
+        {pathname !== '/' && (
+          <HoverTapWrapper>
+            <HomeLinkIcon />
+          </HoverTapWrapper>
+        )}
       </AnimatedElementPresence>
     </header>
   );

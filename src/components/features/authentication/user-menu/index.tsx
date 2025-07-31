@@ -4,6 +4,7 @@ import { DotLoader } from '@/components/ui/animation/dot-loader';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/forms/input';
 import { Heading } from '@/components/ui/heading';
+import { HoverTapWrapper } from '@/components/ui/hover-tap-wrapper';
 import { Modal } from '@/components/ui/modal';
 import { useModal } from '@/hooks/use-modal';
 import { deleteUser } from '@/server-functions/auth/delete-user';
@@ -96,15 +97,17 @@ export const UserMenu = () => {
   return (
     <>
       <div className="relative">
-        <Button
-          ref={buttonRef}
-          variant="icon-button"
-          title="User"
-          className="rounded-full bg-primary p-2 transition-colors hover:bg-primary/80"
-          onClick={handleMenuButtonClick}
-        >
-          <FaUser className="pointer-events-none text-white" />
-        </Button>
+        <HoverTapWrapper>
+          <Button
+            ref={buttonRef}
+            variant="icon-button"
+            title="User"
+            className="rounded-full bg-primary p-3 transition-colors hover:bg-primary/80"
+            onClick={handleMenuButtonClick}
+          >
+            <FaUser size={16} className="pointer-events-none text-white" />
+          </Button>
+        </HoverTapWrapper>
 
         <AnimatePresence>
           {isOpen && menuPosition && (
