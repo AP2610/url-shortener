@@ -31,7 +31,9 @@ export const EntryAnimation = () => {
     }
   }, [hideEntryAnimationFlag]);
 
-  if (hideEntryAnimationFlag) {
+  const hasEntryAnimationBeenShown = animationCompletionStatus['entry-animation'];
+
+  if (hideEntryAnimationFlag || hasEntryAnimationBeenShown) {
     return null;
   }
 
