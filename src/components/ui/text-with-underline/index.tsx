@@ -22,8 +22,14 @@ export const TextWithUnderline = ({ text, className, svgClassName, shouldAnimate
       viewBox="0 0 263 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={cn('absolute top-[25px] left-0 -z-10 h-full', svgClassName)}
-      initial={shouldRunAnimation ? { width: 0 } : undefined}
+      className={cn(
+        'absolute top-[25px] left-0 -z-10 h-full',
+        {
+          'w-full': !shouldRunAnimation,
+        },
+        svgClassName,
+      )}
+      initial={{ width: 0 }}
       animate={shouldRunAnimation ? { width: '100%' } : undefined}
       transition={shouldRunAnimation ? { duration: 0.3, ease: 'easeInOut', delay: 0.5 } : undefined}
     >
