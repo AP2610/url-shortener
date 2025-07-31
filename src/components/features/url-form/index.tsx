@@ -179,6 +179,7 @@ export const UrlForm = () => {
               minDate={new Date()}
               onFocus={handleDatePickerFocus}
               onBlur={handleDatePickerBlur}
+              dateFormat="dd/MM/yyyy"
             />
             <motion.label
               variants={fadeInVariants}
