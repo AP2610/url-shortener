@@ -7,17 +7,20 @@ Try it out: https://url-shortener-ap2610.vercel.app/
 ## Features
 
 ### Core Functionality
+
 - **URL Shortening**: Convert long URLs into short links
 - **Custom Expiry Dates**: Set expiration dates for your shortened links (optional, defaults to one year)
 - **Admin Dashboard**: View statistics for shortened URLs (per user basis is being implemented along with authentication)
 
 ### User Experience
+
 - **Beautiful Animations**: Smooth, modern UI with motion animations
 - **Responsive Design**: Works seamlessly on desktop and mobile devices
 - **Copy to Clipboard**: One-click copying of shortened URLs
 - **Error Handling**: Error messages and validation
 
 ### Technical Features
+
 - **URL Validation**: Input sanitization and validation
 - **Database Integration**: PrismaPostgres using Vercel integration
 - **Server Actions and Functions**: Next.js server-side form handling
@@ -25,6 +28,7 @@ Try it out: https://url-shortener-ap2610.vercel.app/
 ## Tech Stack
 
 ### Frontend
+
 - Next.js 15 - App router
 - React 19
 - TypeScript
@@ -34,6 +38,7 @@ Try it out: https://url-shortener-ap2610.vercel.app/
 - React DatePicker
 
 ### Backend & Database
+
 - PrismaPostgres
 - Prisma Accelerate
 - Next.js API Routes
@@ -41,25 +46,30 @@ Try it out: https://url-shortener-ap2610.vercel.app/
 - Nanoid for short-code generation
 
 ### Authentication & Security
+
 - Clerk - Authentication service (currently being implemented)
 
 ### Architecture
 
 #### **SSR and SSG with App Router**
+
 - Admin dashboard renders server-side for up-to-date data, homepage is statically generated
 - **Server Actions**: Form handling for url-submission
 - **API Routes**: For redirects and authentication
 - **Middleware**: Request interception for authentication and shortcode routing
 
 #### **State Management**
+
 - **Zustand**: Used for animations
 
 #### **Data Flow**
+
 1. **URL Creation**: Form → Server Action → Database → Response
 2. **URL Redirect**: Short URL → Middleware → API Route → Database → Redirect
 3. **Admin Dashboard**: Protected Route (currently being implemented) → Server Component → Database → Table
 
 #### **Security & Performance**
+
 - **Authentication**: Clerk integration for user management (currently being implemented)
 - **Input Validation**: Server-side sanitization
 - **Database**: Prisma Accelerate for connection pooling
@@ -69,13 +79,15 @@ Try it out: https://url-shortener-ap2610.vercel.app/
 Running this locally is not very straightforward as you will need your own development database that is created using Vercel. If you want to, you'll have to go through those setup steps. The same goes with Auth, it will require the creation of a Clerk account (auth is still being implemented). If you just want to go through the code in your own IDE, feel free to clone it and use the production URl to check out how everything comes together.
 
 ### Prerequisites
-- Node.js 20+ 
+
+- Node.js 20+
 - PrismaPostgres set up with Vercel
 - Clerk account (for authentication)
 
 ## 🗄️ Database Setup
 
 ### **Vercel Prisma Postgres Required**
+
 This project uses Vercel's Prisma Postgres integration. You'll need to:
 
 1. **Create Vercel Account**: Sign up at [vercel.com](https://vercel.com)
@@ -87,18 +99,21 @@ This project uses Vercel's Prisma Postgres integration. You'll need to:
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone git@github.com:AP2610/url-shortener.git
    cd url-shortener
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Set up environment variables**
    Create a `.env.local` file with:
+
    ```env
    DATABASE_URL="from_vercel"
    BASE_URL=http://localhost:3000
@@ -107,12 +122,14 @@ This project uses Vercel's Prisma Postgres integration. You'll need to:
    ```
 
 4. **Set up the database**
+
    ```bash
    npx prisma generate
    npx prisma migrate deploy
    ```
 
 5. **Run the development server**
+
    ```bash
    npm run dev
    ```
@@ -120,12 +137,12 @@ This project uses Vercel's Prisma Postgres integration. You'll need to:
 6. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
 
-
 ## Authentication Status
 
 **Currently in Development**: Authentication is being implemented using Clerk. The login and registration pages are currently placeholders and will be fully functional once the Clerk integration is complete.
 
 ### Planned Authentication Features
+
 - User registration and login (currently just placeholders)
 - Protected routes for user-specific features
 - Admin dashboard (currently open, but will be protected)
@@ -137,4 +154,3 @@ This project uses Vercel's Prisma Postgres integration. You'll need to:
 - Admin panel authentication guard needs to be added
 - Rate limiting is yet to be implemented
 - Password show/hide button currently has a bug
-

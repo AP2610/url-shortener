@@ -43,14 +43,14 @@
   }
 
   .react-datepicker__input-container {
-    @apply inline-flex! h-[var(--input-height)]! w-full items-center rounded-sm border-2 border-dark-gray bg-blue-black p-2 text-light-gray transition-all focus-within:border-primary;
+    @apply inline-flex! h-[var(--input-height)]! border-dark-gray bg-blue-black text-light-gray focus-within:border-primary w-full items-center rounded-sm border-2 p-2 transition-all;
 
     input:focus {
       @apply outline-none;
     }
 
     input {
-      @apply w-full pt-7! pr-4! pb-3! pl-10!;
+      @apply pt-7! pr-4! pb-3! pl-10! w-full;
     }
   }
 }

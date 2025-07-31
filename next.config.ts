@@ -1,6 +1,11 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  experimental: {
+    serverActions: {
+      allowedOrigins: ['localhost:3000', 'kgtxkn4x-3000.euw.devtunnels.ms', '*.devtunnels.ms'],
+    },
+  },
   async headers() {
     return [
       {
@@ -9,12 +14,9 @@ const nextConfig: NextConfig = {
           {
             key: 'Content-Security-Policy',
             value: [
-              "default-src 'self'",
-              "script-src 'self' 'unsafe-inline'", // Allow inline scripts for React
               "style-src 'self' 'unsafe-inline'", // Allow inline styles for Tailwind
               "img-src 'self' data:",
               "font-src 'self'",
-              "connect-src 'self'",
               "frame-ancestors 'none'", // Prevent clickjacking
             ].join('; '),
           },

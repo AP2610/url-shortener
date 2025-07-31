@@ -1,14 +1,17 @@
 'use client';
 
-import { motion, Variants } from 'motion/react';
+import { motion, RepeatType, Variants } from 'motion/react';
 
 type AnimatedTextProps = {
   text: string;
   className?: string;
   delay?: number;
+  repeat?: number | undefined;
+  repeatType?: RepeatType | undefined;
+  repeatDelay?: number | undefined;
 };
 
-export const AnimatedText = ({ text, className, delay = 0 }: AnimatedTextProps) => {
+export const AnimatedText = ({ text, className, delay = 0, repeat, repeatType, repeatDelay }: AnimatedTextProps) => {
   const letters = Array.from(text);
 
   const container: Variants = {
@@ -25,9 +28,9 @@ export const AnimatedText = ({ text, className, delay = 0 }: AnimatedTextProps) 
       y: 0,
       transition: {
         type: 'spring',
-        repeat: Infinity,
-        repeatType: 'reverse',
-        repeatDelay: 0.4,
+        repeat: repeat,
+        repeatType: repeatType,
+        repeatDelay: repeatDelay,
       },
     },
     hidden: {

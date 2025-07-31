@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Shortly',
-  description: 'Sign up or login to your Shortly account',
+  description: 'Sign up or sign in to your Shortly account',
 };
 
 export default function RootLayout({

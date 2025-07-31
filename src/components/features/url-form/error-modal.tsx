@@ -7,6 +7,7 @@ interface ErrorModalProps {
   errorMessage: string;
 }
 
+// TODO: Consolidate with general error modal.
 export const ErrorModal = ({ isOpen, closeModal, errorMessage }: ErrorModalProps) => {
   return (
     <Modal isOpen={isOpen} closeModal={closeModal}>

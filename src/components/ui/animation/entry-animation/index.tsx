@@ -5,6 +5,7 @@ import useAnimationStore from '@/lib/stores/animation-store';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 
+// TODO: Animation: Switch to using local storage or a cookie with ttl of 1 hour to track if the animation has been shown
 export const EntryAnimation = () => {
   const { animationCompletionStatus, setAnimationCompletionStatus } = useAnimationStore();
   const [showEntryAnimation, setShowEntryAnimation] = useState(true);
@@ -30,7 +31,9 @@ export const EntryAnimation = () => {
     }
   }, [hideEntryAnimationFlag]);
 
-  if (hideEntryAnimationFlag) {
+  const hasEntryAnimationBeenShown = animationCompletionStatus['entry-animation'];
+
+  if (hideEntryAnimationFlag || hasEntryAnimationBeenShown) {
     return null;
   }
 

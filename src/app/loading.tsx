@@ -6,7 +6,7 @@ const Loading = () => {
   return (
     <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-background">
       <Heading level="h1" color="purple">
-        <AnimatedText text={LOGO_TEXT} />
+        <AnimatedText text={LOGO_TEXT} repeat={Infinity} repeatType="reverse" repeatDelay={0.4} />
       </Heading>
     </div>
   );
