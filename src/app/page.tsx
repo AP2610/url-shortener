@@ -10,10 +10,12 @@ const Home = () => {
   return (
     <div className="container mx-auto flex h-full flex-col items-center justify-center px-4 pt-[var(--header-height)] pb-10">
       <EntryAnimation />
+
       <AnimatedElementPresence shouldWaitToAnimateFor="entry-animation">
         <div className="mb-8 flex flex-col items-center justify-center space-y-8 text-center md:mb-16">
           <Heading level="h1">
-            Got a long URL? <TextWithUnderline text="Shortly" className="text-primary" svgClassName="text-foreground" /> it!
+            Got a long URL?{' '}
+            <TextWithUnderline shouldAnimate text="Shortly" className="text-primary" svgClassName="text-foreground" /> it!
           </Heading>
 
           <p className="text-dark-gray">Shorten your links with our URL shortening service. It's free and easy to use.</p>

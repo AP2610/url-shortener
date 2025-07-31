@@ -1,9 +1,9 @@
 'use client';
 
-import { motion, MotionProps, Variants } from 'motion/react';
 import { LOGO_TEXT } from '@/components/ui/logo/entry-animation-logo';
-import useAnimationStore from '@/lib/stores/animation-store';
 import { cn } from '@/lib/utils/cn';
+import { motion, MotionProps, Variants } from 'motion/react';
+import { usePathname } from 'next/navigation';
 
 interface HeaderLogoProps extends MotionProps {
   layoutId?: string;
@@ -11,7 +11,7 @@ interface HeaderLogoProps extends MotionProps {
 }
 
 export const HeaderLogo = ({ layoutId, className, ...props }: HeaderLogoProps) => {
-  const { setAnimationCompletionStatus } = useAnimationStore();
+  const pathname = usePathname();
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -40,11 +40,11 @@ export const HeaderLogo = ({ layoutId, className, ...props }: HeaderLogoProps) =
 
   return (
     <motion.div
+      key={pathname}
       variants={containerVariants}
       initial="hidden"
       animate="visible"
       className={cn('text-2xl font-bold text-primary', className)}
-      onAnimationComplete={() => setAnimationCompletionStatus('header-logo')}
       layoutId={layoutId}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
