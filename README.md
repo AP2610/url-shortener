@@ -2,7 +2,7 @@
 
 A modern, feature-rich URL shortening service built with Next.js 15, featuring a beautiful animated UI and comprehensive link management capabilities. The main goal of this project was to learn Prisma, and to create some cool animations. This is **not** intended to be an actual tool used by the public, its more to play around with different technologies and learn.
 
-Try it out: https://url-shortener-ap2610.vercel.app/
+Try it out: https://www.shortly-it.xyz/
 
 ## Features
 
@@ -47,7 +47,7 @@ Try it out: https://url-shortener-ap2610.vercel.app/
 
 ### Authentication & Security
 
-- Clerk - Authentication service (currently being implemented)
+- Clerk - Authentication service
 
 ### Architecture
 
@@ -66,17 +66,17 @@ Try it out: https://url-shortener-ap2610.vercel.app/
 
 1. **URL Creation**: Form → Server Action → Database → Response
 2. **URL Redirect**: Short URL → Middleware → API Route → Database → Redirect
-3. **Admin Dashboard**: Protected Route (currently being implemented) → Server Component → Database → Table
+3. **Admin Dashboard**: Protected Route → Server Component → Database → Table
 
 #### **Security & Performance**
 
-- **Authentication**: Clerk integration for user management (currently being implemented)
+- **Authentication**: Clerk integration for user management
 - **Input Validation**: Server-side sanitization
 - **Database**: Prisma Accelerate for connection pooling
 
 ## Getting Started
 
-Running this locally is not very straightforward as you will need your own development database that is created using Vercel. If you want to, you'll have to go through those setup steps. The same goes with Auth, it will require the creation of a Clerk account (auth is still being implemented). If you just want to go through the code in your own IDE, feel free to clone it and use the production URl to check out how everything comes together.
+Running this locally is not very straightforward as you will need your own development database that is created using Vercel. If you want to, you'll have to go through those setup steps. The same goes with Auth, it will require the creation of a Clerk account. If you just want to go through the code in your own IDE, feel free to clone it and use the production URl to check out how everything comes together.
 
 ### Prerequisites
 
@@ -137,20 +137,8 @@ This project uses Vercel's Prisma Postgres integration. You'll need to:
 6. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
 
-## Authentication Status
+## TODOs
 
-**Currently in Development**: Authentication is being implemented using Clerk. The login and registration pages are currently placeholders and will be fully functional once the Clerk integration is complete.
-
-### Planned Authentication Features
-
-- User registration and login (currently just placeholders)
-- Protected routes for user-specific features
-- Admin dashboard (currently open, but will be protected)
-- User-specific URL list
-
-## Known Issues & TODOs
-
-- Authentication system is currently being implemented
-- Admin panel authentication guard needs to be added
-- Rate limiting is yet to be implemented
-- Password show/hide button currently has a bug
+- Rate limiting
+- Dashboard for URLs instead of table
+- Toast notification system
