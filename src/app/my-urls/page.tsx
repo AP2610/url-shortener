@@ -24,7 +24,7 @@ const MyUrlsPage = async () => {
     <div className="container mx-auto h-full gap-10 space-y-8 px-4 pt-[calc(var(--header-height)+3rem)] pb-10">
       <Heading level="h1">My URLs</Heading>
 
-      <URLRecordTable urlRecords={urls} />
+      {urls.length > 0 ? <URLRecordTable urlRecords={urls} /> : <p>No URLs found, create one to start tracking your links.</p>}
     </div>
   );
 };
