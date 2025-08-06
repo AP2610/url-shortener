@@ -84,7 +84,7 @@ Running this locally is not very straightforward as you will need your own devel
 - PrismaPostgres set up with Vercel
 - Clerk account (for authentication)
 
-## 🗄️ Database Setup
+## Database Setup
 
 ### **Vercel Prisma Postgres Required**
 
